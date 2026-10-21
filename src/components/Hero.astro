@@ -14,7 +14,7 @@ const chips = [
 ];
 
 const trust = [
-  { icon: 'award', strong: '+10 años', text: 'de experiencia' },
+  { icon: 'award', strong: '+10 años', text: 'de experiencia', count: 10 },
   { icon: 'shield', strong: 'Autorización', text: 'del MINSA' },
   { icon: 'building', strong: 'Empresas', text: 'y hogares' },
   { icon: 'user-shield', strong: 'Personal', text: 'con EPP' },
@@ -41,16 +41,16 @@ const trust = [
   <div class="container hero__in">
     <div class="hero__grid">
       <div class="hero__content">
-        <span class="hero__badge"><Icon name="shield" /> Saneamiento con respaldo MINSA</span>
-        <h1>Fumigación y saneamiento ambiental en Lima, <span class="hl">con autorización del MINSA</span></h1>
-        <p class="hero__lead">Fumigación, desratización, desinfección y limpieza de cisternas, campanas y trampas de grasa para empresas y hogares. Instalaciones limpias, seguras y libres de plagas, con una empresa que puedes verificar.</p>
-        <div class="hero__actions">
+        <span class="hero__badge" data-enter style="--d: 0ms"><Icon name="shield" /> Saneamiento con respaldo MINSA</span>
+        <h1 data-enter style="--d: 80ms">Fumigación y saneamiento ambiental en Lima, <span class="hl">con autorización del MINSA</span></h1>
+        <p class="hero__lead" data-enter style="--d: 160ms">Fumigación, desratización, desinfección y limpieza de cisternas, campanas y trampas de grasa para empresas y hogares. Instalaciones limpias, seguras y libres de plagas, con una empresa que puedes verificar.</p>
+        <div class="hero__actions" data-enter style="--d: 240ms">
           <a href="#contacto" class="btn btn--green btn--lg">Solicitar cotización <Icon name="arrow" /></a>
           <a href="#autorizaciones" class="btn btn--ghost btn--lg"><Icon name="file" /> Ver autorización</a>
         </div>
       </div>
 
-      <aside class="quick" aria-labelledby="quick-title">
+      <aside class="quick" aria-labelledby="quick-title" data-enter="card" style="--d: 200ms">
         <div class="quick__head">
           <span class="quick__pulse" aria-hidden="true"></span>
           <h2 id="quick-title">¿Qué necesitas hoy?</h2>
@@ -63,7 +63,7 @@ const trust = [
             </button>
           ))}
         </div>
-        <div class="quick__type" role="radiogroup" aria-label="Tipo de cliente">
+        <div class="quick__type" role="radiogroup" aria-label="Tipo de cliente" data-active="empresa">
           <button type="button" class="seg is-active" role="radio" aria-checked="true" data-client="empresa"><Icon name="building" />Empresa</button>
           <button type="button" class="seg" role="radio" aria-checked="false" data-client="hogar"><Icon name="home" />Hogar</button>
         </div>
@@ -71,8 +71,8 @@ const trust = [
         <p class="quick__note"><Icon name="check" /> Cotización gratuita y sin compromiso</p>
       </aside>
     </div>
-    <ul class="hero__trust">
-      {trust.map((t) => <li><Icon name={t.icon} /><span><b>{t.strong}</b> {t.text}</span></li>)}
+    <ul class="hero__trust" data-enter style="--d: 360ms">
+      {trust.map((t) => <li><Icon name={t.icon} /><span><b data-count={t.count}>{t.strong}</b> {t.text}</span></li>)}
     </ul>
   </div>
 </section>

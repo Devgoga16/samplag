@@ -4,6 +4,15 @@ import { pests, riskLabel } from '../data/pests';
 
 const $ = <T extends Element = HTMLElement>(sel: string, root: ParentNode = document) => root.querySelector<T>(sel)!;
 const $$ = <T extends Element = HTMLElement>(sel: string, root: ParentNode = document) => [...root.querySelectorAll<T>(sel)];
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const EASE_OUT = 'cubic-bezier(.23, 1, .32, 1)';
+
+/** Reinicia una animación CSS de clase (p. ej. la sacudida o el cambio de plaga) */
+const replay = (el: Element, cls: string) => {
+  el.classList.remove(cls);
+  void (el as HTMLElement).offsetWidth;
+  el.classList.add(cls);
+};
 
 // Header con sombra al hacer scroll
 const header = $('#header');
@@ -65,7 +74,7 @@ form.addEventListener('submit', (e) => {
   let ok = true;
   $$<HTMLInputElement>('[required]', form).forEach((el) => {
     const bad = !el.value.trim();
-    el.classList.toggle('is-invalid', bad);
+    if (bad) replay(el, 'is-invalid'); else el.classList.remove('is-invalid');
     if (bad && ok) { el.focus(); ok = false; }
   });
   error.hidden = ok;
@@ -98,17 +107,32 @@ const updateQuick = () => {
   quickGo.href = waLink(`Hola Samplag, quisiera una cotización de ${quick.service.toLowerCase()} ${who}.`);
 };
 single($$('[data-quick]'), (b) => { quick.service = b.dataset.quick!; updateQuick(); });
-single($$('[data-client]'), (b) => { quick.client = b.dataset.client!; updateQuick(); });
+const quickType = $('.quick__type');
+single($$('[data-client]'), (b) => {
+  quick.client = b.dataset.client!;
+  quickType.dataset.active = quick.client;
+  updateQuick();
+});
 updateQuick();
 
 // Filtro de servicios por categoría
 const cards = $$('#services-grid .svc');
+// Las que salen desaparecen al instante; las que quedan entran en cascada (WAAPI: interrumpible y fuera del hilo principal)
 single($$('[data-filter]'), (b) => {
   const f = b.dataset.filter;
+  let i = 0;
   cards.forEach((c) => {
     const show = f === 'all' || c.dataset.cat === f;
     c.classList.toggle('is-hidden', !show);
-    if (show) { c.classList.add('is-in'); c.style.transitionDelay = '0ms'; }
+    if (!show) return;
+    c.classList.add('is-in');
+    c.getAnimations().forEach((a) => a.cancel());
+    c.animate(
+      reduceMotion
+        ? [{ opacity: 0 }, { opacity: 1 }]
+        : [{ opacity: 0, transform: 'translateY(10px) scale(.98)' }, { opacity: 1, transform: 'none' }],
+      { duration: 320, delay: i++ * 40, easing: EASE_OUT, fill: 'backwards' },
+    );
   });
 });
 
@@ -128,9 +152,8 @@ single($$('[data-pest]'), (b) => {
   field('risk').dataset.level = String(p.risk);
   field('risk').setAttribute('aria-label', riskLabel[p.risk]);
   pestCta.dataset.service = p.svc;
-  pestMain.classList.remove('is-swapping');
-  void pestMain.offsetWidth;
-  pestMain.classList.add('is-swapping');
+  replay(pestMain, 'is-swapping');
+  replay(field('svc'), 'is-swapping');
 });
 
 // Checklist sanitario
@@ -142,7 +165,7 @@ const checkGo = $<HTMLAnchorElement>('#check-go');
 const updateCheck = () => {
   const done = boxes.filter((b) => b.checked).length;
   const pending = boxes.filter((b) => !b.checked).map((b) => b.value);
-  bar.style.width = `${(done / boxes.length) * 100}%`;
+  bar.style.transform = `scaleX(${done / boxes.length})`;
   bar.classList.toggle('is-ok', done === boxes.length);
   msg.innerHTML = done === boxes.length
     ? '<b>¡Todo al día!</b> Programa tu próximo mantenimiento con nosotros.'
@@ -156,16 +179,45 @@ check.addEventListener('submit', (e) => e.preventDefault());
 updateCheck();
 
 // Aparición suave de bloques al hacer scroll
-const revealTargets = $$('.svc, .sector, .step, .tip, .auth__card, .feats li, .faq details, .why__media, .biz__media, .sec-head, .rule, .pest, .check');
+const revealTargets = $$('.svc, .sector, .step, .tip, .auth__card, .feats li, .faq details, .sec-head, .rule, .pest, .check');
+const clipTargets = $$('.why__media img, .biz__media img');
 if ('IntersectionObserver' in window) {
   const io = new IntersectionObserver((entries) => {
     entries.forEach((en) => {
       if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
     });
   }, { rootMargin: '0px 0px -8% 0px' });
-  revealTargets.forEach((el, i) => {
+
+  // Escalonado según la posición dentro de su grupo (no según el índice global de la página)
+  revealTargets.forEach((el) => {
+    const index = el.parentElement ? [...el.parentElement.children].indexOf(el) : 0;
     el.classList.add('reveal');
-    el.style.transitionDelay = `${(i % 4) * 60}ms`;
+    el.style.transitionDelay = `${(index % 4) * 60}ms`;
+    // Al terminar se quitan la clase y el retardo, para que el hover recupere su propia transición sin demora
+    el.addEventListener('transitionend', function done(e) {
+      if (e.target !== el || e.propertyName !== 'opacity') return;
+      el.classList.remove('reveal', 'is-in');
+      el.style.transitionDelay = '';
+      el.removeEventListener('transitionend', done);
+    });
     io.observe(el);
+  });
+  clipTargets.forEach((el) => { el.classList.add('reveal-clip'); io.observe(el); });
+}
+
+// Contador "+10 años" del hero
+if (!reduceMotion) {
+  $$('[data-count]').forEach((el) => {
+    const target = Number(el.dataset.count);
+    const suffix = el.textContent!.replace(/^\+?\d+/, '');
+    const duration = 1100;
+    const start = performance.now() + 450;
+    const tick = (now: number) => {
+      const t = Math.min(Math.max((now - start) / duration, 0), 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = `+${Math.round(eased * target)}${suffix}`;
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
   });
 }
