@@ -1,0 +1,79 @@
+---
+import Icon from './Icon.astro';
+import Placeholder from './Placeholder.astro';
+import { site, waLink } from '../data/site';
+import { services, extraQuoteOptions } from '../data/services';
+
+const options = [...services.map((s) => s.quote), ...extraQuoteOptions];
+---
+<section class="contact" id="contacto">
+  <div class="container contact__in">
+    <div class="contact__intro">
+      <span class="eyebrow eyebrow--light">Contáctanos</span>
+      <h2>Solicita tu cotización gratis</h2>
+      <p>Completa el formulario y te responderemos por WhatsApp a la brevedad. Es rápido, sencillo y sin compromiso.</p>
+    </div>
+
+    <form class="qform" id="qform" novalidate>
+      <h3>Formulario de cotización</h3>
+      <div class="qform__grid">
+        <label class="field">
+          <span>Nombre y apellido *</span>
+          <input type="text" name="nombre" autocomplete="name" required />
+        </label>
+        <label class="field">
+          <span>Empresa <em>(opcional)</em></span>
+          <input type="text" name="empresa" autocomplete="organization" />
+        </label>
+        <label class="field">
+          <span>Teléfono / celular *</span>
+          <input type="tel" name="telefono" autocomplete="tel" inputmode="tel" required />
+        </label>
+        <label class="field">
+          <span>Distrito *</span>
+          <input type="text" name="distrito" autocomplete="address-level2" required />
+        </label>
+        <label class="field field--full">
+          <span>Servicio de interés *</span>
+          <select name="servicio" id="servicio" required>
+            <option value="">Selecciona un servicio</option>
+            {options.map((o) => <option>{o}</option>)}
+          </select>
+        </label>
+        <label class="field field--full">
+          <span>Cuéntanos sobre tu local</span>
+          <textarea name="mensaje" rows="3" placeholder="Tipo de local, área aproximada, plaga detectada, fecha preferida…"></textarea>
+        </label>
+      </div>
+      <p class="qform__error" id="qerror" role="alert" hidden>Completa los campos obligatorios (*).</p>
+      <button type="submit" class="btn btn--green btn--lg btn--block"><Icon name="whatsapp" /> Enviar por WhatsApp</button>
+      <p class="qform__alt">¿Prefieres correo? <a href={`mailto:${site.email}?subject=${encodeURIComponent('Solicitud de cotización')}`} id="qmail">Envíanos un email</a></p>
+    </form>
+
+    <aside class="cinfo">
+      <a class="cinfo__item" href={waLink()} target="_blank" rel="noopener">
+        <span class="cinfo__ic cinfo__ic--green"><Icon name="whatsapp" /></span>
+        <span><small>WhatsApp</small><b>{site.whatsappLabel}</b></span>
+      </a>
+      <a class="cinfo__item" href={`tel:${site.phone}`}>
+        <span class="cinfo__ic"><Icon name="phone" /></span>
+        <span><small>Llámanos</small><b>{site.phoneLabel}</b></span>
+      </a>
+      <a class="cinfo__item" href={`mailto:${site.email}`}>
+        <span class="cinfo__ic"><Icon name="mail" /></span>
+        <span><small>Correo</small><b>{site.email}</b></span>
+      </a>
+      <div class="cinfo__item">
+        <span class="cinfo__ic"><Icon name="pin" /></span>
+        <span><small>Oficina</small>{site.address ? <b>{site.address}</b> : <Fragment><b>Lima, Perú</b><Placeholder light>Dirección por confirmar</Placeholder></Fragment>}</span>
+      </div>
+      <div class="cinfo__item">
+        <span class="cinfo__ic"><Icon name="clock" /></span>
+        <span><small>Horario de atención</small>{site.schedule ? <b>{site.schedule}</b> : <Placeholder light>Horario por confirmar</Placeholder>}</span>
+      </div>
+      <div class="cinfo__social">
+        <a href={site.facebook} target="_blank" rel="noopener" aria-label="Facebook de Samplag"><Icon name="facebook" /></a>
+      </div>
+    </aside>
+  </div>
+</section>

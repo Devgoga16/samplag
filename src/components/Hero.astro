@@ -1,0 +1,78 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { waLink } from '../data/site';
+import hero from '../assets/img/hero.jpg';
+
+const chips = [
+  { label: 'Fumigación', service: 'Fumigación integral', icon: 'spray' },
+  { label: 'Roedores', service: 'Desratización', icon: 'rat' },
+  { label: 'Cisternas', service: 'Limpieza de cisternas y tanques elevados', icon: 'droplet' },
+  { label: 'Desinfección', service: 'Desinfección general', icon: 'sparkles' },
+  { label: 'Campanas', service: 'Limpieza de campanas extractoras', icon: 'wind' },
+  { label: 'Trampas de grasa', service: 'Limpieza de trampas de grasa y pozos sépticos', icon: 'pipe' },
+];
+
+const trust = [
+  { icon: 'award', strong: '+10 años', text: 'de experiencia' },
+  { icon: 'shield', strong: 'Autorización', text: 'del MINSA' },
+  { icon: 'building', strong: 'Empresas', text: 'y hogares' },
+  { icon: 'user-shield', strong: 'Personal', text: 'con EPP' },
+];
+---
+<section class="hero" id="inicio">
+  <Image
+    class="hero__bg"
+    src={hero}
+    alt="Técnico con traje de protección aplicando un tratamiento de fumigación"
+    widths={[768, 1280, 1800]}
+    sizes="100vw"
+    loading="eager"
+    fetchpriority="high"
+  />
+  <svg class="hero__leaves" viewBox="0 0 400 400" aria-hidden="true">
+    <path d="M40 360C60 220 160 90 330 40 300 200 200 320 40 360Z" fill="url(#lg1)" />
+    <path d="M120 380C170 280 260 200 380 180 330 300 240 370 120 380Z" fill="url(#lg2)" />
+    <defs>
+      <linearGradient id="lg1" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#2ea84a" stop-opacity=".0" /><stop offset="1" stop-color="#7cc242" stop-opacity=".35" /></linearGradient>
+      <linearGradient id="lg2" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#1565c0" stop-opacity=".0" /><stop offset="1" stop-color="#3fa2e0" stop-opacity=".4" /></linearGradient>
+    </defs>
+  </svg>
+  <div class="container hero__in">
+    <div class="hero__grid">
+      <div class="hero__content">
+        <span class="hero__badge"><Icon name="shield" /> Saneamiento con respaldo MINSA</span>
+        <h1>Fumigación y saneamiento ambiental en Lima, <span class="hl">con autorización del MINSA</span></h1>
+        <p class="hero__lead">Fumigación, desratización, desinfección y limpieza de cisternas, campanas y trampas de grasa para empresas y hogares. Instalaciones limpias, seguras y libres de plagas, con una empresa que puedes verificar.</p>
+        <div class="hero__actions">
+          <a href="#contacto" class="btn btn--green btn--lg">Solicitar cotización <Icon name="arrow" /></a>
+          <a href="#autorizaciones" class="btn btn--ghost btn--lg"><Icon name="file" /> Ver autorización</a>
+        </div>
+      </div>
+
+      <aside class="quick" aria-labelledby="quick-title">
+        <div class="quick__head">
+          <span class="quick__pulse" aria-hidden="true"></span>
+          <h2 id="quick-title">¿Qué necesitas hoy?</h2>
+          <p>Elige un servicio y te respondemos por WhatsApp.</p>
+        </div>
+        <div class="quick__chips" role="radiogroup" aria-label="Servicio">
+          {chips.map((c, i) => (
+            <button type="button" class:list={['chip', { 'is-active': i === 0 }]} role="radio" aria-checked={i === 0 ? 'true' : 'false'} data-quick={c.service}>
+              <Icon name={c.icon} />{c.label}
+            </button>
+          ))}
+        </div>
+        <div class="quick__type" role="radiogroup" aria-label="Tipo de cliente">
+          <button type="button" class="seg is-active" role="radio" aria-checked="true" data-client="empresa"><Icon name="building" />Empresa</button>
+          <button type="button" class="seg" role="radio" aria-checked="false" data-client="hogar"><Icon name="home" />Hogar</button>
+        </div>
+        <a href={waLink()} class="btn btn--green btn--lg btn--block" id="quick-go" target="_blank" rel="noopener"><Icon name="whatsapp" /> Cotizar por WhatsApp</a>
+        <p class="quick__note"><Icon name="check" /> Cotización gratuita y sin compromiso</p>
+      </aside>
+    </div>
+    <ul class="hero__trust">
+      {trust.map((t) => <li><Icon name={t.icon} /><span><b>{t.strong}</b> {t.text}</span></li>)}
+    </ul>
+  </div>
+</section>

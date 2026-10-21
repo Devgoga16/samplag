@@ -1,0 +1,23 @@
+---
+import Icon from './Icon.astro';
+import { faqs } from '../data/faqs';
+import { waLink } from '../data/site';
+---
+<section class="section" id="faq">
+  <div class="container faq">
+    <div class="faq__head">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2>Resolvemos tus dudas</h2>
+      <p>¿No encuentras tu respuesta? Escríbenos y te asesoramos sin compromiso.</p>
+      <a href={waLink('Hola Samplag, tengo una consulta.')} class="btn btn--outline" target="_blank" rel="noopener"><Icon name="whatsapp" /> Hacer una consulta</a>
+    </div>
+    <div class="faq__list">
+      {faqs.map((f) => (
+        <details>
+          <summary>{f.q}<Icon name="plus" /></summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,42 @@
+---
+import Icon from './Icon.astro';
+import { pests, riskLabel } from '../data/pests';
+
+const first = pests[0];
+---
+<section class="section pests-sec" id="plagas">
+  <div class="container">
+    <div class="sec-head sec-head--center">
+      <span class="eyebrow">Diagnóstico rápido</span>
+      <h2>¿Qué plaga tienes en tu local o vivienda?</h2>
+      <p>Selecciona la plaga y te contamos las señales de alerta, los riesgos y el servicio que necesitas.</p>
+    </div>
+    <div class="pests">
+      <div class="pests__tabs" role="tablist" aria-label="Tipo de plaga">
+        {pests.map((p, i) => (
+          <button type="button" class:list={['ptab', { 'is-active': i === 0 }]} role="tab" aria-selected={i === 0 ? 'true' : 'false'} aria-controls="pest-panel" data-pest={p.id}>
+            <span class="ptab__ic"><Icon name={p.icon} /></span>{p.label}
+          </button>
+        ))}
+      </div>
+      <article class="pest" id="pest-panel" role="tabpanel" aria-live="polite">
+        <div class="pest__main">
+          <span class="pest__tag" data-f="tag">{first.tag}</span>
+          <h3 data-f="title">{first.title}</h3>
+          <p data-f="desc">{first.desc}</p>
+          <h4>Señales de alerta</h4>
+          <ul class="pest__signs" data-f="signs">
+            {first.signs.map((s) => <li>{s}</li>)}
+          </ul>
+        </div>
+        <div class="pest__side">
+          <span class="pest__label">Servicio recomendado</span>
+          <b class="pest__svc" data-f="svc">{first.svc}</b>
+          <span class="pest__label">Riesgo</span>
+          <div class="meter" data-f="risk" data-level={first.risk} aria-label={riskLabel[first.risk]}><i></i><i></i><i></i></div>
+          <button type="button" class="btn btn--green btn--block" id="pest-cta" data-service={first.svc}>Cotizar este servicio <Icon name="arrow" /></button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

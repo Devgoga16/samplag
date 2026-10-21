@@ -1,0 +1,58 @@
+---
+import Icon from './Icon.astro';
+import { site, waLink } from '../data/site';
+
+const rules = [
+  { icon: 'scale', title: 'D.S. N° 022-2001-SA', text: 'Reglamento sanitario para las actividades de saneamiento ambiental en viviendas y establecimientos comerciales, industriales y de servicios.' },
+  { icon: 'file', title: 'R.M. N° 449-2001-SA/DM', text: 'Norma sanitaria para trabajos de desinsectación, desratización, desinfección y limpieza y desinfección de reservorios de agua.' },
+  { icon: 'shield', title: 'Empresa autorizada', text: `Contrata solo a empresas autorizadas por la autoridad de salud. Samplag cuenta con la ${site.authorization}.` },
+];
+
+const checklist = [
+  { service: 'Fumigación integral', label: 'Fumigación realizada en los últimos meses' },
+  { service: 'Desratización', label: 'Control de roedores activo' },
+  { service: 'Limpieza de cisternas y tanques elevados', label: 'Cisterna y tanque elevado limpios y desinfectados' },
+  { service: 'Limpieza de trampas de grasa y pozos sépticos', label: 'Trampa de grasa con mantenimiento (si aplica)' },
+  { service: 'Limpieza de campanas extractoras', label: 'Campana extractora limpia (si aplica)' },
+];
+---
+<section class="section section--tint" id="normativa">
+  <div class="container norm">
+    <div class="norm__content">
+      <span class="eyebrow">Lo que exige la norma</span>
+      <h2>¿Tu empresa cumple con el <span class="nowrap">D.S. N° 022-2001-SA?</span></h2>
+      <p>En el Perú, el saneamiento ambiental no es opcional. El Reglamento aprobado por el <b>Decreto Supremo N° 022-2001-SA</b> establece que toda persona natural y jurídica debe realizar actividades de saneamiento ambiental en los inmuebles de su propiedad o a su cuidado, y que estos servicios deben estar a cargo de empresas autorizadas.</p>
+      <div class="rules">
+        {rules.map((r) => (
+          <article class="rule">
+            <span class="rule__ic"><Icon name={r.icon} /></span>
+            <div>
+              <h3>{r.title}</h3>
+              <p>{r.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <form class="check" id="check" aria-labelledby="check-title">
+      <div class="check__head">
+        <h3 id="check-title">Checklist sanitario</h3>
+        <p>Marca lo que ya tienes al día.</p>
+      </div>
+      {checklist.map((c) => (
+        <label class="check__item">
+          <input type="checkbox" value={c.service} />
+          <span class="check__box"><Icon name="check" /></span>
+          <span>{c.label}</span>
+        </label>
+      ))}
+      <div class="check__result" id="check-result" aria-live="polite">
+        <div class="check__bar"><i id="check-bar"></i></div>
+        <p id="check-msg"><b>0 de {checklist.length}</b> puntos al día. Te ayudamos con lo pendiente.</p>
+      </div>
+      <a href={waLink()} class="btn btn--green btn--block" id="check-go" target="_blank" rel="noopener"><Icon name="whatsapp" /> Pedir cotización de lo pendiente</a>
+      <p class="check__legal">Referencial. Los requisitos específicos dependen de tu actividad y de la autoridad que fiscaliza tu local.</p>
+    </form>
+  </div>
+</section>

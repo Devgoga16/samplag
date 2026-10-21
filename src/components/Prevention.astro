@@ -1,0 +1,35 @@
+---
+import Placeholder from './Placeholder.astro';
+
+const tips = [
+  { tag: 'Control de plagas', title: '¿Por qué es importante fumigar mi empresa?', text: 'Porque es la forma más eficaz de prevenir y eliminar plagas que contaminan alimentos y superficies, dañan productos y afectan la imagen de tu negocio.' },
+  { tag: 'Agua segura', title: '¿Cada cuánto limpiar la cisterna y el tanque?', text: 'La acumulación de sedimentos y microorganismos es silenciosa. Una limpieza y desinfección periódica protege el agua que consumen tu familia o tus trabajadores.' },
+  { tag: 'Cocinas', title: '¿Qué es una trampa de grasa y por qué limpiarla?', text: 'Retiene grasas y residuos antes de que lleguen al desagüe. Si se satura, provoca atoros, malos olores y posibles observaciones en inspecciones.' },
+];
+---
+<section class="section section--tint" id="prevencion">
+  <div class="container">
+    <div class="sec-head sec-head--split">
+      <div>
+        <span class="eyebrow">Prevención y saneamiento</span>
+        <h2>Información para cuidar tus espacios</h2>
+      </div>
+      <p>Consejos prácticos para prevenir plagas y mantener tus instalaciones en buen estado. Aquí también publicaremos campañas y nuevos servicios.</p>
+    </div>
+    <div class="tips">
+      {tips.map((t) => (
+        <article class="tip">
+          <span class="tip__tag">{t.tag}</span>
+          <h3>{t.title}</h3>
+          <p>{t.text}</p>
+        </article>
+      ))}
+      <article class="tip tip--promo">
+        <span class="tip__tag tip__tag--light">Campañas</span>
+        <h3>Campañas de prevención</h3>
+        <p>Espacio reservado para campañas de temporada y nuevos servicios.</p>
+        <Placeholder light>Contenido por definir con Samplag</Placeholder>
+      </article>
+    </div>
+  </div>
+</section>

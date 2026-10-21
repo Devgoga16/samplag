@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import restaurantes from '../assets/img/sector-restaurantes.jpg';
+import edificios from '../assets/img/sector-edificios.jpg';
+import oficinas from '../assets/img/sector-oficinas.jpg';
+import industrias from '../assets/img/sector-industrias.jpg';
+import colegios from '../assets/img/sector-colegios.jpg';
+import hogares from '../assets/img/sector-hogares.jpg';
+
+const sectors = [
+  { img: restaurantes, alt: 'Cocina industrial de acero inoxidable', title: 'Restaurantes y cocinas', text: 'Fumigación, campanas extractoras y trampas de grasa.' },
+  { img: edificios, alt: 'Tanques de agua en la azotea de un edificio', title: 'Edificios y condominios', text: 'Cisternas, tanques elevados, desratización y áreas comunes.' },
+  { img: oficinas, alt: 'Pasillo de oficinas moderno', title: 'Oficinas y comercios', text: 'Desinfección y control de plagas sin interrumpir tu atención.' },
+  { img: industrias, alt: 'Almacén con estanterías altas', title: 'Industrias y almacenes', text: 'Programas de desratización y limpieza industrial.' },
+  { img: colegios, alt: 'Aula de clases vacía', title: 'Colegios e instituciones', text: 'Ambientes saludables para alumnos, docentes y personal.' },
+  { img: hogares, alt: 'Sala de una vivienda iluminada', title: 'Hogares', text: 'Fumigación, desinfección y limpieza de tanques para tu familia.' },
+];
+---
+<section class="section section--tint" id="sectores">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Sectores que atendemos</span>
+      <h2>Saneamiento para cada tipo de instalación</h2>
+      <p>Cada espacio tiene riesgos distintos. Adaptamos el servicio, los horarios y la frecuencia a tu actividad.</p>
+    </div>
+    <div class="sectors">
+      {sectors.map((s) => (
+        <article class="sector">
+          <Image src={s.img} alt={s.alt} widths={[480, 800]} sizes="(max-width: 680px) 100vw, (max-width: 960px) 50vw, 400px" />
+          <div class="sector__body">
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+            <a href="#contacto" class="sector__link">Cotizar para mi local <Icon name="arrow" /></a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,97 @@
+---
+import '../styles/global.css';
+import IconSprite from '../components/IconSprite.astro';
+import { site } from '../data/site';
+import { services } from '../data/services';
+import { faqs } from '../data/faqs';
+
+interface Props {
+  title: string;
+  description: string;
+  ogTitle?: string;
+  ogDescription?: string;
+}
+
+const { title, description, ogTitle = title, ogDescription = description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL('/og-image.jpg', Astro.site).href;
+
+const businessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': `${site.url}/#empresa`,
+  name: site.name,
+  legalName: site.legalName,
+  slogan: site.slogan,
+  description:
+    'Empresa de saneamiento ambiental y control de plagas autorizada por el Ministerio de Salud. Fumigación, desratización, desinfección, limpieza de cisternas y tanques elevados, campanas extractoras, trampas de grasa, limpieza industrial y control aviar.',
+  telephone: `+${site.whatsapp}`,
+  email: site.email,
+  url: `${site.url}/`,
+  logo: `${site.url}/assets/logo-mark.png`,
+  image: ogImage,
+  address: { '@type': 'PostalAddress', addressLocality: 'Lima', addressRegion: 'Lima', addressCountry: 'PE' },
+  areaServed: [{ '@type': 'City', name: 'Lima' }, { '@type': 'Country', name: 'Perú' }],
+  contactPoint: { '@type': 'ContactPoint', telephone: `+${site.whatsapp}`, contactType: 'sales', availableLanguage: 'es' },
+  hasCredential: {
+    '@type': 'EducationalOccupationalCredential',
+    name: `Autorización sanitaria ${site.authorization}`,
+    credentialCategory: 'Autorización de empresa de saneamiento ambiental',
+    recognizedBy: { '@type': 'GovernmentOrganization', name: 'DIRIS Lima Sur · Ministerio de Salud del Perú' },
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Servicios de saneamiento ambiental',
+    itemListElement: services.map((s) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s.title } })),
+  },
+  sameAs: [site.facebook],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<!doctype html>
+<html lang="es-PE">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="es-PE" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#0B2F6B" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="es_PE" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <slot name="head" />
+  </head>
+  <body>
+    <IconSprite />
+    <a class="skip" href="#inicio">Saltar al contenido</a>
+    <slot />
+    <script>
+      import '../scripts/main';
+    </script>
+  </body>
+</html>

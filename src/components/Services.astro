@@ -1,0 +1,44 @@
+---
+import Icon from './Icon.astro';
+import { services, categories, type ServiceCategory } from '../data/services';
+
+const filters = [
+  { id: 'all', label: 'Todos', count: services.length },
+  ...(Object.keys(categories) as ServiceCategory[]).map((id) => ({
+    id,
+    label: categories[id],
+    count: services.filter((s) => s.category === id).length,
+  })),
+];
+---
+<section class="section" id="servicios">
+  <div class="container">
+    <div class="sec-head sec-head--split">
+      <div>
+        <span class="eyebrow">Nuestros servicios</span>
+        <h2>Soluciones integrales de saneamiento ambiental</h2>
+      </div>
+      <p>Atendemos cada necesidad con procedimientos seguros, personal capacitado y productos aplicados de forma responsable con las personas y el ambiente.</p>
+    </div>
+
+    <div class="filters" role="tablist" aria-label="Filtrar servicios">
+      {filters.map((f, i) => (
+        <button type="button" class:list={['filter', { 'is-active': i === 0 }]} data-filter={f.id} role="tab" aria-selected={i === 0 ? 'true' : 'false'}>
+          {f.label} <span>{f.count}</span>
+        </button>
+      ))}
+    </div>
+
+    <div class="services" id="services-grid">
+      {services.map((s) => (
+        <article class="svc" data-cat={s.category}>
+          <div class="svc__ic"><Icon name={s.icon} /></div>
+          <span class={`svc__cat svc__cat--${s.category}`}>{categories[s.category]}</span>
+          <h3>{s.title}</h3>
+          <p>{s.description}</p>
+          <button class="svc__link" data-service={s.quote}>Cotizar este servicio <Icon name="arrow" /></button>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

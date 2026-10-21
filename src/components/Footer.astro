@@ -1,0 +1,53 @@
+---
+import Icon from './Icon.astro';
+import Placeholder from './Placeholder.astro';
+import { site, waLink } from '../data/site';
+
+const year = new Date().getFullYear();
+const quickMsg = 'Hola Samplag, quisiera una cotización.';
+---
+<footer class="footer">
+  <div class="container footer__in">
+    <div class="footer__brand">
+      <img src="/assets/logo-mark.png" alt="" width="815" height="545" class="footer__mark" loading="lazy" />
+      <img src="/assets/logo-full-text-white.png" alt="Samplag, Saneamiento Ambiental y Control de Plagas S.A.C." class="footer__word" loading="lazy" />
+      <p>Saneamiento ambiental y control de plagas para empresas y hogares. Autorizados por el Ministerio de Salud.</p>
+    </div>
+    <div class="footer__col">
+      <h4>Servicios</h4>
+      <a href="#servicios">Fumigación integral</a>
+      <a href="#servicios">Desratización</a>
+      <a href="#servicios">Desinfección</a>
+      <a href="#servicios">Cisternas y tanques</a>
+      <a href="#servicios">Campanas y trampas de grasa</a>
+    </div>
+    <div class="footer__col">
+      <h4>Empresa</h4>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#autorizaciones">Autorizaciones</a>
+      <a href="#empresas">Servicios empresariales</a>
+      <a href="#normativa">Normativa sanitaria</a>
+      <a href="#prevencion">Prevención</a>
+      <a href="#faq">Preguntas frecuentes</a>
+    </div>
+    <div class="footer__col">
+      <h4>Contacto</h4>
+      <a href={waLink()} target="_blank" rel="noopener">WhatsApp: {site.whatsappLabel}</a>
+      <a href={`tel:${site.phone}`}>Teléfono: {site.phoneLabel}</a>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      <a href={site.facebook} target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+  <div class="container footer__bottom">
+    <span>© {year} {site.name} Todos los derechos reservados. · RUC {site.ruc ?? <Placeholder light>por confirmar</Placeholder>}</span>
+    <span>{site.authorization}</span>
+  </div>
+</footer>
+
+<!-- WhatsApp flotante (desktop) y barra inferior (móvil) -->
+<a class="wa-float" href={waLink(quickMsg)} target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><Icon name="whatsapp" /></a>
+<nav class="mbar" aria-label="Contacto rápido">
+  <a href={`tel:+${site.whatsapp}`}><Icon name="phone" />Llamar</a>
+  <a href={waLink(quickMsg)} target="_blank" rel="noopener" class="mbar__wa"><Icon name="whatsapp" />WhatsApp</a>
+  <a href="#contacto"><Icon name="file" />Cotizar</a>
+</nav>
