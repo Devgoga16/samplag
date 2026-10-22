@@ -503,7 +503,81 @@ p { margin: 0; }
 .svc__cat--limpieza { background: #eef0fb; color: #3b4fb0; }
 
 /* ---------- ¿Qué plaga tienes? ---------- */
-.pests-sec { padding-top: 0; }
+/* ---------- Control aviar ---------- */
+.avian { background: var(--sky-50); }
+.avian__switch {
+  position: relative; isolation: isolate; display: grid; grid-template-columns: 1fr 1fr;
+  width: min(560px, 100%); margin: 0 auto 32px; padding: 5px; border-radius: 999px;
+  background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+}
+.avian__switch::before {
+  content: ""; position: absolute; z-index: -1; top: 5px; bottom: 5px; left: 5px; width: calc(50% - 5px);
+  border-radius: 999px; background: var(--navy);
+  transition: transform .34s var(--ease-drawer);
+}
+.avian__switch[data-active="correctivo"]::before { transform: translateX(100%); }
+.avian__tab {
+  display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 14px;
+  border: 0; border-radius: 999px; background: transparent;
+  font-family: var(--font-head); font-weight: 700; font-size: .92rem; color: var(--ink);
+  transition: color .2s ease, transform .16s var(--ease-out);
+}
+.avian__tab .ic { width: 18px; height: 18px; color: var(--blue); transition: color .2s ease; }
+.avian__tab.is-active, .avian__tab.is-active .ic { color: #fff; }
+.avian__tab:active { transform: scale(.97); }
+.avian__panel.is-entering { animation: swap .32s var(--ease-out) both; }
+.avian__lead { max-width: 780px; margin: 0 auto 28px; text-align: center; }
+.avian__kicker { display: block; font-family: var(--font-head); font-weight: 700; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--green-600); margin-bottom: 8px; }
+.avian__lead p { font-size: 1.02rem; }
+
+.methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.method {
+  display: flex; flex-direction: column; gap: 12px; padding: 24px;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
+  transition: transform .3s var(--ease-out), box-shadow .3s ease;
+}
+.avian__panel.is-entering .method { animation: swap .36s var(--ease-out) backwards; animation-delay: calc(var(--i) * 45ms); }
+@media (hover: hover) and (pointer: fine) { .method:not(.method--cta):hover { transform: translateY(-4px); box-shadow: var(--shadow); } }
+.method__top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.method__ic { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(135deg, var(--navy), var(--blue)); color: #fff; }
+.method__ic .ic { width: 24px; height: 24px; }
+.method__ic--light { background: rgba(255, 255, 255, .12); }
+.method__kind { font-size: .68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: #effaf0; color: var(--green-600); text-align: right; }
+.method__kind--light { background: rgba(124, 194, 66, .18); color: var(--lime); }
+.method h3 { font-size: 1.08rem; }
+.method dl, .corrective dl { margin: 0; display: grid; gap: 12px; }
+.method dt, .corrective dt { font-family: var(--font-head); font-weight: 700; font-size: .78rem; color: var(--navy); margin-bottom: 2px; }
+.method dd, .corrective dd { margin: 0; font-size: .9rem; line-height: 1.5; }
+.method--cta { justify-content: center; background: linear-gradient(150deg, var(--navy), var(--navy-700)); border: 0; color: #c9d6ea; }
+.method--cta h3 { color: #fff; font-size: 1.2rem; }
+.method--cta p { font-size: .92rem; margin-bottom: 6px; }
+
+.corrective {
+  display: grid; grid-template-columns: 1.5fr 1fr; overflow: hidden; max-width: 1000px; margin-inline: auto;
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+}
+.corrective__main { display: grid; gap: 14px; padding: 32px; background: linear-gradient(150deg, var(--navy-900), var(--navy)); color: #c9d6ea; }
+.corrective__main h3 { color: #fff; font-size: 1.35rem; }
+.corrective dt { color: var(--lime); }
+.corrective dd { color: #d6e2f3; }
+.corrective__side { display: flex; flex-direction: column; gap: 18px; padding: 32px; background: #fff; }
+.corrective__note { display: flex; gap: 10px; align-items: flex-start; padding: 14px; border-radius: 12px; background: #fff5e6; color: #8a5a00; font-size: .88rem; line-height: 1.45; }
+.corrective__note .ic { flex: none; width: 20px; height: 20px; color: #e08a00; }
+.corrective .checks { margin: 0; }
+.corrective .checks li { color: var(--ink); }
+.corrective .checks .ic { background: #effaf0; color: var(--green); }
+
+.svc--cta { justify-content: center; background: linear-gradient(150deg, var(--navy), var(--navy-700)); border: 0; color: #c9d6ea; }
+.svc--cta h3 { color: #fff; font-size: 1.15rem; }
+.svc--cta p { flex: 0; margin-bottom: 8px; }
+.svc--cta::after { display: none; }
+
+/* Acciones de la tarjeta de servicio */
+.svc__actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+.svc__actions .svc__link { margin-top: 0; }
+.svc__more { font-family: var(--font-head); font-weight: 700; font-size: .78rem; color: var(--green-600); padding: 5px 10px; border-radius: 999px; background: #effaf0; transition: background-color .2s ease, transform .16s var(--ease-out); }
+.svc__more:active { transform: scale(.96); }
+@media (hover: hover) and (pointer: fine) { .svc__more:hover { background: #dff3e2; } }
 .pests { display: grid; grid-template-columns: 280px 1fr; gap: 22px; max-width: 1040px; margin-inline: auto; }
 .pests__tabs { display: grid; gap: 8px; align-content: start; }
 .ptab {
@@ -625,7 +699,8 @@ p { margin: 0; }
 @keyframes fade-only { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  [data-enter], [data-enter="card"], .pest__main.is-swapping > *, .pest__main.is-swapping li, .pest__svc.is-swapping, .faq details[open] p { animation-name: fade-only; }
+  [data-enter], [data-enter="card"], .pest__main.is-swapping > *, .pest__main.is-swapping li, .pest__svc.is-swapping, .faq details[open] p, .avian__panel.is-entering, .avian__panel.is-entering .method { animation-name: fade-only; }
+  .avian__switch::before { transition: none; }
   .hero__bg, .hero .hl, .hero__leaves, .ticker__track, .wa-float, .wa-float::after, .quick__pulse, .mbar, .field .is-invalid { animation: none; }
   .reveal { transform: none; }
   .reveal-clip { clip-path: none; transition: none; }
@@ -640,6 +715,8 @@ p { margin: 0; }
 @media (min-width: 1100px) { .topbar { display: block; } }
 
 @media (max-width: 1099px) {
+  .methods { grid-template-columns: repeat(2, 1fr); }
+  .corrective { grid-template-columns: 1fr; }
   .services { grid-template-columns: repeat(2, 1fr); }
   .tips { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: repeat(2, 1fr); }
@@ -691,6 +768,10 @@ p { margin: 0; }
 }
 
 @media (max-width: 680px) {
+  .methods { grid-template-columns: 1fr; }
+  .method, .corrective__main, .corrective__side { padding: 22px 20px; }
+  .avian__tab { font-size: .82rem; padding: 11px 8px; gap: 6px; }
+  .avian__tab .ic { width: 16px; height: 16px; }
   body { padding-bottom: 68px; }
   .brand { gap: 8px; }
   .brand__mark { height: 34px; }

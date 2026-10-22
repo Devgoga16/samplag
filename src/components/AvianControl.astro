@@ -1,0 +1,80 @@
+---
+import Icon from './Icon.astro';
+import { avianIntro, deterrent, corrective } from '../data/avian';
+---
+<section class="section avian" id="control-aviar">
+  <div class="container">
+    <div class="sec-head sec-head--split">
+      <div>
+        <span class="eyebrow">Servicio especializado</span>
+        <h2>Control aviar integral</h2>
+      </div>
+      <p>{avianIntro}</p>
+    </div>
+
+    <div class="avian__switch" role="tablist" aria-label="Tipo de control aviar" data-active="disuasivo">
+      <button type="button" class="avian__tab is-active" role="tab" aria-selected="true" aria-controls="avian-disuasivo" id="tab-disuasivo" data-avian="disuasivo">
+        <Icon name="shield" /> {deterrent.title}
+      </button>
+      <button type="button" class="avian__tab" role="tab" aria-selected="false" aria-controls="avian-correctivo" id="tab-correctivo" data-avian="correctivo">
+        <Icon name="crosshair" /> {corrective.title}
+      </button>
+    </div>
+
+    <!-- Métodos disuasivos -->
+    <div class="avian__panel" id="avian-disuasivo" role="tabpanel" aria-labelledby="tab-disuasivo">
+      <div class="avian__lead">
+        <span class="avian__kicker">{deterrent.subtitle}</span>
+        <p>{deterrent.text}</p>
+      </div>
+      <div class="methods">
+        {deterrent.methods.map((m, i) => (
+          <article class="method" style={`--i: ${i}`}>
+            <div class="method__top">
+              <span class="method__ic"><Icon name={m.icon} /></span>
+              <span class="method__kind">{m.kind}</span>
+            </div>
+            <h3>{m.title}</h3>
+            <dl>
+              <div><dt>¿Para qué sirve?</dt><dd>{m.purpose}</dd></div>
+              {m.how && <div><dt>¿Cómo funciona?</dt><dd>{m.how}</dd></div>}
+            </dl>
+          </article>
+        ))}
+        <article class="method method--cta" style={`--i: ${deterrent.methods.length}`}>
+          <h3>¿No sabes qué método necesitas?</h3>
+          <p>Evaluamos tu estructura y la intensidad del problema para recomendarte la combinación adecuada.</p>
+          <button type="button" class="btn btn--green btn--block" data-service="Control aviar">Solicitar evaluación <Icon name="arrow" /></button>
+        </article>
+      </div>
+    </div>
+
+    <!-- Control correctivo -->
+    <div class="avian__panel" id="avian-correctivo" role="tabpanel" aria-labelledby="tab-correctivo" hidden>
+      <div class="avian__lead">
+        <span class="avian__kicker">{corrective.subtitle}</span>
+        <p>{corrective.text}</p>
+      </div>
+      <article class="corrective">
+        <div class="corrective__main">
+          <div class="method__top">
+            <span class="method__ic method__ic--light"><Icon name={corrective.method.icon} /></span>
+            <span class="method__kind method__kind--light">{corrective.method.kind}</span>
+          </div>
+          <h3>{corrective.method.title}</h3>
+          <dl>
+            <div><dt>¿Para qué sirve?</dt><dd>{corrective.method.purpose}</dd></div>
+            <div><dt>¿Cómo funciona?</dt><dd>{corrective.method.how}</dd></div>
+          </dl>
+        </div>
+        <div class="corrective__side">
+          <p class="corrective__note"><Icon name="alert" /> Se aplica solo cuando la disuasión no es suficiente o existe un riesgo sanitario inminente.</p>
+          <ul class="checks">
+            {corrective.guarantees.map((g) => <li><Icon name="check" />{g}</li>)}
+          </ul>
+          <button type="button" class="btn btn--green btn--block" data-service="Control aviar">Cotizar control correctivo <Icon name="arrow" /></button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

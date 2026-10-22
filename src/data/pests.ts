@@ -15,7 +15,7 @@ export interface Pest {
 export const pests: Pest[] = [
   {
     id: 'cucarachas', label: 'Cucarachas', icon: 'bug',
-    tag: 'Insectos rastreros', title: 'Control de cucarachas', svc: 'Fumigación integral', risk: 3,
+    tag: 'Insectos rastreros', title: 'Control de cucarachas', svc: 'Desinsectación', risk: 3,
     desc: 'Se esconden en cocinas, desagües y grietas, y salen de noche. Contaminan alimentos y superficies, y se reproducen muy rápido.',
     signs: ['Las ves de noche al prender la luz', 'Excrementos como granitos negros en cajones', 'Olor desagradable en zonas cerradas'],
   },
@@ -27,13 +27,13 @@ export const pests: Pest[] = [
   },
   {
     id: 'voladores', label: 'Moscas y zancudos', icon: 'fly',
-    tag: 'Insectos voladores', title: 'Control de moscas y zancudos', svc: 'Fumigación integral', risk: 2,
+    tag: 'Insectos voladores', title: 'Control de moscas y zancudos', svc: 'Desinsectación', risk: 2,
     desc: 'Se concentran cerca de residuos, aguas estancadas y zonas de alimentos. Son molestos para clientes y trabajadores y pueden transmitir enfermedades.',
     signs: ['Presencia constante cerca de basura o alimentos', 'Agua acumulada en recipientes o canaletas', 'Larvas en sumideros o desagües'],
   },
   {
     id: 'polillas', label: 'Polillas', icon: 'moth',
-    tag: 'Insectos de almacén', title: 'Control de polillas', svc: 'Fumigación integral', risk: 1,
+    tag: 'Insectos de almacén', title: 'Control de polillas', svc: 'Desinsectación', risk: 1,
     desc: 'Atacan telas, alfombras, papeles y alimentos secos almacenados. El daño suele notarse cuando la infestación ya avanzó.',
     signs: ['Agujeros en ropa, cortinas o alfombras', 'Pequeños gusanos o capullos en esquinas', 'Polillas en despensas y almacenes'],
   },

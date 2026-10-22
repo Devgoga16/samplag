@@ -13,12 +13,14 @@ export interface Service {
   icon: string;
   category: ServiceCategory;
   description: string;
+  /** Enlace a una sección con el detalle del servicio */
+  more?: { href: string; label: string };
 }
 
 export const services: Service[] = [
   {
-    title: 'Fumigación integral',
-    quote: 'Fumigación integral',
+    title: 'Desinsectación',
+    quote: 'Desinsectación',
     icon: 'spray',
     category: 'plagas',
     description: 'Control de cucarachas, insectos rastreros y voladores, polillas y otras plagas en interiores y exteriores.',
@@ -59,18 +61,12 @@ export const services: Service[] = [
     description: 'Limpieza y extracción de residuos para evitar atoros, olores y contaminación en desagües.',
   },
   {
-    title: 'Limpieza industrial',
-    quote: 'Limpieza industrial',
-    icon: 'factory',
-    category: 'limpieza',
-    description: 'Limpieza profunda de plantas, almacenes y áreas operativas, adaptada al ritmo de tu operación.',
-  },
-  {
     title: 'Control aviar',
     quote: 'Control aviar',
     icon: 'bird',
     category: 'plagas',
-    description: 'Medidas para evitar que las aves aniden o se posen en techos, fachadas y estructuras de tu local.',
+    description: 'Plan integral contra palomas y otras aves: púas, gel repelente, cometas, cetrería, retiro de nidos y control correctivo.',
+    more: { href: '#control-aviar', label: 'Ver métodos' },
   },
 ];
 

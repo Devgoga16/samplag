@@ -36,7 +36,7 @@ Las agrupo por intención. Antes de lanzar, los volúmenes hay que validarlos en
 - limpieza de cisternas y tanques elevados Lima · desinfección de reservorios de agua
 - desratización Lima · control de roedores para empresas
 - limpieza de campanas extractoras · limpieza de trampas de grasa para restaurantes
-- limpieza industrial Lima · control de palomas (control aviar)
+- control de palomas Lima · control aviar (púas, gel, cetrería)
 
 **Long tail informativo (FAQ y blog)**
 - cada cuánto se debe limpiar la cisterna

@@ -36,9 +36,18 @@ const filters = [
           <span class={`svc__cat svc__cat--${s.category}`}>{categories[s.category]}</span>
           <h3>{s.title}</h3>
           <p>{s.description}</p>
-          <button class="svc__link" data-service={s.quote}>Cotizar este servicio <Icon name="arrow" /></button>
+          <div class="svc__actions">
+            <button class="svc__link" data-service={s.quote}>Cotizar este servicio <Icon name="arrow" /></button>
+            {s.more && <a class="svc__more" href={s.more.href}>{s.more.label}</a>}
+          </div>
         </article>
       ))}
+      <!-- Completa la grilla en la vista "Todos"; los filtros la ocultan porque no tiene categoría -->
+      <article class="svc svc--cta" data-cat="cta">
+        <h3>¿Necesitas otro servicio?</h3>
+        <p>Cuéntanos qué pasa en tu local o vivienda y te asesoramos sin compromiso.</p>
+        <button class="btn btn--green btn--block" data-service="Otro / no estoy seguro">Consultar <Icon name="arrow" /></button>
+      </article>
     </div>
   </div>
 </section>

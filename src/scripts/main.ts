@@ -100,7 +100,7 @@ const single = (buttons: HTMLElement[], onPick: (b: HTMLElement) => void) => but
 }));
 
 // Tarjeta "¿Qué necesitas hoy?" del hero
-const quick = { service: 'Fumigación integral', client: 'empresa' };
+const quick = { service: 'Desinsectación', client: 'empresa' };
 const quickGo = $<HTMLAnchorElement>('#quick-go');
 const updateQuick = () => {
   const who = quick.client === 'empresa' ? 'para mi empresa' : 'para mi hogar';
@@ -156,6 +156,18 @@ single($$('[data-pest]'), (b) => {
   replay(field('svc'), 'is-swapping');
 });
 
+// Control aviar: pestañas Métodos disuasivos / Control correctivo
+const avianSwitch = $('.avian__switch');
+single($$('[data-avian]'), (b) => {
+  const id = b.dataset.avian!;
+  avianSwitch.dataset.active = id;
+  $$('.avian__panel').forEach((p) => {
+    const on = p.id === `avian-${id}`;
+    p.hidden = !on;
+    if (on) replay(p, 'is-entering');
+  });
+});
+
 // Checklist sanitario
 const check = $<HTMLFormElement>('#check');
 const boxes = $$<HTMLInputElement>('input[type="checkbox"]', check);
@@ -179,7 +191,7 @@ check.addEventListener('submit', (e) => e.preventDefault());
 updateCheck();
 
 // Aparición suave de bloques al hacer scroll
-const revealTargets = $$('.svc, .sector, .step, .tip, .auth__card, .feats li, .faq details, .sec-head, .rule, .pest, .check');
+const revealTargets = $$('.svc, .sector, .step, .tip, .auth__card, .feats li, .faq details, .sec-head, .rule, .pest, .check, #avian-disuasivo .method, .avian__switch');
 const clipTargets = $$('.why__media img, .biz__media img');
 if ('IntersectionObserver' in window) {
   const io = new IntersectionObserver((entries) => {
