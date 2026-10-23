@@ -8,12 +8,14 @@ const rules = [
   { icon: 'shield', title: 'Empresa autorizada', text: `Contrata solo a empresas autorizadas por la autoridad de salud. Samplag cuenta con la ${site.authorization}.` },
 ];
 
+// `service` es el texto que va en el mensaje de WhatsApp para lo que quede sin marcar
 const checklist = [
-  { service: 'Desinsectación', label: 'Desinsectación realizada en los últimos meses' },
-  { service: 'Desratización', label: 'Control de roedores activo' },
-  { service: 'Limpieza de cisternas y tanques elevados', label: 'Cisterna y tanque elevado limpios y desinfectados' },
-  { service: 'Limpieza de trampas de grasa y pozos sépticos', label: 'Trampa de grasa con mantenimiento (si aplica)' },
-  { service: 'Limpieza de campanas extractoras', label: 'Campana extractora limpia (si aplica)' },
+  { service: 'Desinsectación', label: 'Desinsectación' },
+  { service: 'Desratización', label: 'Desratización' },
+  { service: 'Desinfección', label: 'Desinfección' },
+  { service: 'Limpieza de ambientes', label: 'Limpieza de ambientes' },
+  { service: 'Limpieza y desinfección de reservorios de agua', label: 'Limpieza y desinfección de reservorios de agua' },
+  { service: 'Limpieza de tanques sépticos', label: 'Limpieza de tanques sépticos' },
 ];
 ---
 <section class="section section--tint" id="normativa">

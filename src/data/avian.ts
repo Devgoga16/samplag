@@ -9,7 +9,7 @@ export interface AvianMethod {
 }
 
 export const avianIntro =
-  'Protegemos tus instalaciones, infraestructura y procesos productivos frente a los riesgos sanitarios y daños causados por plagas de aves. Implementamos un plan de control integral adaptado a cada tipo de estructura e intensidad del problema.';
+  'Plan integral contra palomas y otras aves plaga: exclusión física (mallas, púas), geles repelentes, retiro de nidos y control poblacional directo para alta densidad en espacios autorizados.';
 
 export const deterrent = {
   title: 'Métodos disuasivos',

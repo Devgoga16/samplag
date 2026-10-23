@@ -44,7 +44,7 @@ export const services: Service[] = [
     quote: 'Limpieza de cisternas y tanques elevados',
     icon: 'droplet',
     category: 'agua',
-    description: 'Limpieza y desinfección de reservorios de agua para mantener el agua de consumo en condiciones seguras.',
+    description: 'Servicio especializado de limpieza y desinfección de cisternas y tanques elevados, asegurando agua apta para el consumo humano según la normativa vigente.',
   },
   {
     title: 'Limpieza de campanas extractoras',
@@ -58,7 +58,7 @@ export const services: Service[] = [
     quote: 'Limpieza de trampas de grasa y pozos sépticos',
     icon: 'pipe',
     category: 'agua',
-    description: 'Limpieza y extracción de residuos para evitar atoros, olores y contaminación en desagües.',
+    description: 'Limpieza, succión y transporte de residuos para garantizar el correcto funcionamiento de tus sistemas, prevenir colapsos y cumplir estrictamente con la normativa ambiental vigente.',
   },
   {
     title: 'Control aviar',
