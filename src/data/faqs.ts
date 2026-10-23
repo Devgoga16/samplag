@@ -1,8 +1,14 @@
 // Preguntas frecuentes: se muestran en la página y alimentan el schema FAQPage
+import { site } from './site';
+
 export const faqs: { q: string; a: string }[] = [
   {
     q: '¿Cómo solicito una cotización?',
     a: 'Completa el formulario de esta página o escríbenos por WhatsApp al 994 694 597 indicando el servicio, el distrito y el tipo de local. Te respondemos con una propuesta a medida.',
+  },
+  {
+    q: '¿Entregan certificado de fumigación o de saneamiento ambiental?',
+    a: `Sí. Al finalizar cada servicio te entregamos el certificado del servicio realizado, emitido por una empresa autorizada por el Ministerio de Salud (${site.authorization}). Te sirve como respaldo ante inspecciones sanitarias, municipales o la administración de tu edificio.`,
   },
   {
     q: '¿Atienden hogares o solo empresas?',
@@ -18,7 +24,7 @@ export const faqs: { q: string; a: string }[] = [
   },
   {
     q: '¿Cómo sé si una empresa de fumigación está autorizada?',
-    a: 'Pide el número de su resolución de autorización emitida por la autoridad de salud (DIRIS, DIRESA o GERESA, según la zona). Samplag cuenta con la R.A. N° 305-2020-DSAIA-DIRIS-LS.',
+    a: `Pide el número de su resolución de autorización emitida por la autoridad de salud (DIRIS, DIRESA o GERESA, según la zona). Samplag cuenta con la ${site.authorization}.`,
   },
   {
     q: '¿Tengo que desocupar el local durante el servicio?',

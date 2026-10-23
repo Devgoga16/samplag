@@ -37,7 +37,7 @@ const businessSchema = {
     '@type': 'EducationalOccupationalCredential',
     name: `Autorización sanitaria ${site.authorization}`,
     credentialCategory: 'Autorización de empresa de saneamiento ambiental',
-    recognizedBy: { '@type': 'GovernmentOrganization', name: 'DIRIS Lima Sur · Ministerio de Salud del Perú' },
+    recognizedBy: { '@type': 'GovernmentOrganization', name: `${site.authorizationBy} · Ministerio de Salud del Perú` },
   },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',

@@ -34,7 +34,6 @@ En `src/data/site.ts`, reemplaza `null` por el dato real y la etiqueta amarilla 
 - `address`: dirección de la oficina
 - `schedule`: horario de atención
 - `ruc`: RUC
-- `authorizationPdf`: ruta del PDF de la R.A. Por ejemplo, `'/docs/ra-305-2020.pdf'`, con el archivo en `public/docs/`.
 
 ## Despliegue en Vercel
 

@@ -349,7 +349,7 @@ p { margin: 0; }
 .step .ph { margin-top: 10px; }
 
 /* ---------- Autorizaciones ---------- */
-.auth { display: grid; grid-template-columns: 1.35fr 1fr; gap: 22px; max-width: 1000px; margin-inline: auto; }
+.auth { display: grid; max-width: 720px; margin-inline: auto; }
 .auth__card {
   display: flex; gap: 22px; padding: 30px;
   border-radius: var(--radius-lg); background: #fff;
@@ -357,11 +357,8 @@ p { margin: 0; }
   position: relative; overflow: hidden;
 }
 .auth__card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--green), var(--blue)); }
-.auth__card--soft { background: var(--sky-50); box-shadow: none; }
-.auth__card--soft::before { background: var(--sky-100); }
 .auth__seal { flex: none; width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, var(--navy), var(--blue)); color: #fff; box-shadow: 0 0 0 6px var(--sky-50); }
 .auth__seal .ic { width: 30px; height: 30px; }
-.auth__seal--soft { background: #fff; color: var(--blue); box-shadow: none; }
 .auth__label { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--green-600); }
 .auth__body h3 { font-size: 1.3rem; margin: 6px 0 14px; color: var(--navy); }
 .auth__body > p { font-size: .95rem; margin-bottom: 12px; }
@@ -764,7 +761,6 @@ p { margin: 0; }
   .why__media { max-width: 560px; }
   .why__card { left: 16px; }
   .faq__head { position: static; }
-  .auth { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 680px) {

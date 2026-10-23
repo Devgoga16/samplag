@@ -6,12 +6,12 @@ Fecha: 21/10/2026
 
 **Idea central: "Saneamiento con respaldo MINSA".**
 
-En este rubro, la gente que busca en Google no quiere "una fumigación". Quiere **cumplir** con una inspección, con la municipalidad o con la administración del edificio, y no arriesgarse con un fumigador informal. Samplag tiene algo verificable que muchos competidores no muestran: la **R.A. N° 305-2020-DSAIA-DIRIS-LS**. El gancho convierte ese dato en el motivo para elegirlos.
+En este rubro, la gente que busca en Google no quiere "una fumigación". Quiere **cumplir** con una inspección, con la municipalidad o con la administración del edificio, y no arriesgarse con un fumigador informal. Samplag tiene algo verificable que muchos competidores no muestran: la **R.A. N° 2764-2021-DSAIA/DIRIS-LC**. El gancho convierte ese dato en el motivo para elegirlos.
 
 | Dónde | Texto |
 |---|---|
 | Title (Google) | `Fumigación y Limpieza de Cisternas en Lima · Autorizada por MINSA \| Samplag` |
-| Meta description | `Empresa de saneamiento ambiental autorizada por el Ministerio de Salud (R.A. 305-2020-DSAIA-DIRIS-LS). Fumigación, desratización, cisternas, campanas y trampas de grasa. Cotiza gratis por WhatsApp.` |
+| Meta description | `Fumigación, desratización y limpieza de cisternas en Lima con certificado en cada servicio. Empresa autorizada por el MINSA (R.A. 2764-2021-DSAIA/DIRIS-LC). Cotiza gratis por WhatsApp.` |
 | H1 del hero | "Fumigación y saneamiento ambiental en Lima, con autorización del MINSA" |
 | Frase de marca | "Saneamiento con respaldo MINSA" |
 | Gancho de contenido | "¿Tu empresa cumple con el D.S. 022-2001-SA?", con checklist sanitario por sector |
@@ -21,7 +21,19 @@ En este rubro, la gente que busca en Google no quiere "una fumigación". Quiere 
 2. **Diferencial verificable**: no promete nada que no se pueda comprobar.
 3. **Contenido normativo**: la sección "Lo que exige la norma" atrae búsquedas informativas ("D.S. 022-2001-SA", "cada cuánto limpiar la cisterna") y lleva a esas visitas hacia la cotización.
 
-> ⚠️ **No usar** "certificado de fumigación para licencia de funcionamiento" mientras Samplag no confirme que emite certificado. Además, el requisito depende del TUPA de cada municipalidad y no encontré una norma que lo exija de forma general.
+### Segundo gancho: "Certificado en cada servicio"
+Samplag confirmó que entrega certificado al terminar cada servicio. Mucha gente busca en Google justamente el certificado, porque se lo pide una inspección, la municipalidad o la administración de su edificio.
+
+| Dónde | Texto |
+|---|---|
+| Meta description | Empieza con "…en Lima con certificado en cada servicio" |
+| Hero | Beneficio "Certificado en cada servicio" y mención en el texto principal |
+| Cómo trabajamos | Paso 4: "Certificado y recomendaciones" |
+| FAQ (schema FAQPage) | "¿Entregan certificado de fumigación o de saneamiento ambiental?" |
+
+**Palabras clave:** certificado de fumigación Lima · certificado de saneamiento ambiental · certificado de desinfección · certificado de limpieza de cisterna.
+
+> ⚠️ **No prometer** que el certificado "sirve para la licencia de funcionamiento" o para el ITSE. El requisito depende del TUPA de cada municipalidad y no encontré una norma que lo exija de forma general. La web lo presenta como "respaldo ante inspecciones".
 
 ## 2. Palabras clave objetivo
 

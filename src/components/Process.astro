@@ -1,12 +1,11 @@
 ---
 import Icon from './Icon.astro';
-import Placeholder from './Placeholder.astro';
 
 const steps = [
   { icon: 'search', title: 'Consulta e inspección', text: 'Nos cuentas tu necesidad y evaluamos el local, el tipo de plaga o el estado de tus instalaciones.' },
   { icon: 'file', title: 'Cotización a medida', text: 'Te enviamos una propuesta según el área, el servicio y la frecuencia que necesitas.' },
   { icon: 'spray', title: 'Ejecución del servicio', text: 'Nuestro personal, equipado con EPP, realiza el trabajo con procedimientos seguros.' },
-  { icon: 'check-circle', title: 'Cierre y recomendaciones', text: 'Te indicamos los cuidados posteriores para mantener los resultados en el tiempo.', pending: 'Confirmar si emiten certificado' },
+  { icon: 'check-circle', title: 'Certificado y recomendaciones', text: 'Te entregamos el certificado del servicio realizado y te indicamos los cuidados posteriores para mantener los resultados en el tiempo.' },
 ];
 ---
 <section class="section section--navy" id="proceso">
@@ -21,7 +20,7 @@ const steps = [
           <span class="step__n">{String(i + 1).padStart(2, '0')}</span>
           <Icon name={s.icon} class="step__ic" />
           <h3>{s.title}</h3>
-          <p>{s.text} {s.pending && <Placeholder>{s.pending}</Placeholder>}</p>
+          <p>{s.text}</p>
         </li>
       ))}
     </ol>

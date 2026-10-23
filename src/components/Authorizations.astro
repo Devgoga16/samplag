@@ -1,6 +1,5 @@
 ---
 import Icon from './Icon.astro';
-import Placeholder from './Placeholder.astro';
 import { site } from '../data/site';
 ---
 <section class="section" id="autorizaciones">
@@ -17,24 +16,10 @@ import { site } from '../data/site';
           <span class="auth__label">Autorización sanitaria</span>
           <h3>{site.authorization}</h3>
           <dl>
-            <div><dt>Emitida por</dt><dd>Ministerio de Salud · DIRIS Lima Sur, Dirección de Salud Ambiental e Inocuidad Alimentaria</dd></div>
+            <div><dt>Emitida por</dt><dd>Ministerio de Salud · {site.authorizationBy}, Dirección de Salud Ambiental e Inocuidad Alimentaria</dd></div>
             <div><dt>Actividad</dt><dd>Empresa de saneamiento ambiental</dd></div>
-            <div><dt>Año</dt><dd>2020</dd></div>
+            <div><dt>Año</dt><dd>{site.authorizationYear}</dd></div>
           </dl>
-          {site.authorizationPdf ? (
-            <a href={site.authorizationPdf} class="btn btn--outline btn--sm" target="_blank" rel="noopener"><Icon name="file" /> Ver documento</a>
-          ) : (
-            <a href="#" class="btn btn--outline btn--sm is-disabled" aria-disabled="true" title="Pendiente: PDF de la resolución"><Icon name="file" /> Ver documento <Placeholder>PDF pendiente</Placeholder></a>
-          )}
-        </div>
-      </article>
-      <article class="auth__card auth__card--soft">
-        <div class="auth__seal auth__seal--soft"><Icon name="award" /></div>
-        <div class="auth__body">
-          <span class="auth__label">Mejora continua</span>
-          <h3>Sistemas de gestión</h3>
-          <p>Trabajamos en la implementación de sistemas de gestión de calidad y de seguridad y salud en el trabajo.</p>
-          <Placeholder>Confirmar estado actual antes de publicar</Placeholder>
         </div>
       </article>
     </div>
