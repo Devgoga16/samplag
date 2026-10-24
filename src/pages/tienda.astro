@@ -1,0 +1,97 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import StoreProducts from '../components/StoreProducts.astro';
+import { loadCatalog } from '../data/store';
+import { site, waLink } from '../data/site';
+
+const catalog = await loadCatalog();
+const pageUrl = new URL('/tienda', Astro.site).href;
+
+// Datos estructurados de los productos para Google (precio en soles y disponibilidad)
+const productsSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: catalog.products
+    .filter((p) => p.pricingMode === 'fixed')
+    .map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Product',
+        name: p.name,
+        description: p.description,
+        image: p.images,
+        brand: { '@type': 'Brand', name: 'Samplag' },
+        offers: {
+          '@type': 'Offer',
+          url: pageUrl,
+          priceCurrency: 'PEN',
+          price: p.price.toFixed(2),
+          availability: p.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+          seller: { '@type': 'Organization', name: site.name },
+        },
+      },
+    })),
+};
+
+const perks = [
+  { icon: 'truck', title: 'Delivery', text: 'A tu local o domicilio' },
+  { icon: 'lock', title: 'Compra segura', text: 'Pago vía uTracker' },
+  { icon: 'whatsapp', title: 'Asesoría', text: 'Por WhatsApp' },
+];
+---
+<Layout
+  title="Tienda de productos para el control de plagas en Lima | Samplag"
+  description="Compra en línea trampas y productos para el control de plagas, con delivery en Lima. Asesoría de Samplag, empresa de saneamiento ambiental autorizada por el MINSA."
+  ogTitle="Tienda Samplag · Productos para el control de plagas"
+  faq={false}
+>
+  {productsSchema.itemListElement.length > 0 && (
+    <script slot="head" type="application/ld+json" set:html={JSON.stringify(productsSchema)} />
+  )}
+  <Header />
+  <main>
+    <!-- Encabezado compacto: los productos quedan visibles apenas se entra -->
+    <section class="shop-head" id="inicio">
+      <div class="container shop-head__in">
+        <div class="shop-head__text">
+          <nav class="crumbs" aria-label="Ruta">
+            <a href="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Tienda</span>
+          </nav>
+          <h1>Productos para el control de plagas</h1>
+          <p>Lo que usamos los profesionales, con delivery a tu local o domicilio.</p>
+        </div>
+        <ul class="shop-perks">
+          {perks.map((k) => (
+            <li><span class="shop-perks__ic"><Icon name={k.icon} /></span><span><b>{k.title}</b>{k.text}</span></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="shop" id="productos">
+      <div class="container">
+        <StoreProducts catalog={catalog} filterable />
+      </div>
+    </section>
+
+    <section class="shop-cta">
+      <div class="container shop-cta__in">
+        <div>
+          <h2>¿Prefieres que lo hagamos por ti?</h2>
+          <p>Nuestro equipo autorizado se encarga del control de plagas de principio a fin, con certificado del servicio.</p>
+        </div>
+        <div class="shop-cta__actions">
+          <a href="/#contacto" class="btn btn--green btn--lg">Cotizar un servicio <Icon name="arrow" /></a>
+          <a href={waLink('Hola Samplag, tengo una consulta sobre la tienda.')} class="btn btn--ghost btn--lg" target="_blank" rel="noopener"><Icon name="whatsapp" /> Consultar por WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- Barra fija de pago: aparece cuando hay productos en el carrito -->
+  <div class="checkout-bar" data-checkout-bar hidden></div>
+  <Footer />
+</Layout>

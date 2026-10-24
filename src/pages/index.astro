@@ -12,10 +12,14 @@ import Process from '../components/Process.astro';
 import Authorizations from '../components/Authorizations.astro';
 import Normativa from '../components/Normativa.astro';
 import Business from '../components/Business.astro';
+import StoreTeaser from '../components/StoreTeaser.astro';
 import Prevention from '../components/Prevention.astro';
 import Faq from '../components/Faq.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
+import { loadCatalog } from '../data/store';
+
+const catalog = await loadCatalog();
 ---
 <Layout
   title="Fumigación y Limpieza de Cisternas en Lima · Autorizada por MINSA | Samplag"
@@ -36,9 +40,14 @@ import Footer from '../components/Footer.astro';
     <Authorizations />
     <Normativa />
     <Business />
+    <StoreTeaser catalog={catalog} />
     <Prevention />
     <Faq />
     <Contact />
   </main>
   <Footer />
 </Layout>
+
+<script>
+  import '../scripts/landing';
+</script>

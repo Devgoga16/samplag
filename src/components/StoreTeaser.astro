@@ -1,0 +1,25 @@
+---
+import Icon from './Icon.astro';
+import StoreProducts from './StoreProducts.astro';
+import type { Catalog } from '../data/store';
+
+interface Props {
+  catalog: Catalog;
+}
+const { catalog } = Astro.props;
+---
+<section class="section store-teaser" id="tienda">
+  <div class="container">
+    <div class="sec-head sec-head--split">
+      <div>
+        <span class="eyebrow">Tienda Samplag</span>
+        <h2>Productos para el control de plagas</h2>
+      </div>
+      <div class="store-teaser__aside">
+        <p>Compra en línea lo que usamos los profesionales y recíbelo por delivery en tu local o domicilio.</p>
+        <a href="/tienda" class="btn btn--navy">Ver toda la tienda <Icon name="arrow" /></a>
+      </div>
+    </div>
+    <StoreProducts catalog={catalog} limit={4} />
+  </div>
+</section>

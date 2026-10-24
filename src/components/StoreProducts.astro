@@ -1,0 +1,20 @@
+---
+// Grilla de productos de la tienda. Se pinta en el navegador con el catálogo vigente de uTracker;
+// el catálogo del build va incrustado para mostrarla al instante.
+import type { Catalog } from '../data/store';
+
+interface Props {
+  catalog: Catalog;
+  /** Máximo de productos a mostrar (la landing muestra una muestra) */
+  limit?: number;
+  /** Muestra la barra de filtros (categorías, filtros de uTracker, búsqueda y orden) */
+  filterable?: boolean;
+}
+const { catalog, limit, filterable = false } = Astro.props;
+---
+<p class="store-status" data-store-status hidden>Por ahora no estamos recibiendo pedidos en línea. Escríbenos por WhatsApp para coordinar tu compra.</p>
+{filterable && <div class="shop-toolbar" data-store-toolbar hidden></div>}
+<div class="products" data-store-grid data-limit={limit} data-filterable={filterable ? '' : undefined}>
+  <p class="products__empty">Cargando productos…</p>
+</div>
+<script type="application/json" id="store-catalog" set:html={JSON.stringify(catalog)} />

@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import IconSprite from '../components/IconSprite.astro';
+import CartDrawer from '../components/CartDrawer.astro';
 import { site } from '../data/site';
 import { services } from '../data/services';
 import { faqs } from '../data/faqs';
@@ -10,9 +11,11 @@ interface Props {
   description: string;
   ogTitle?: string;
   ogDescription?: string;
+  /** Incluye el schema FAQPage (solo en páginas donde las preguntas son visibles) */
+  faq?: boolean;
 }
 
-const { title, description, ogTitle = title, ogDescription = description } = Astro.props;
+const { title, description, ogTitle = title, ogDescription = description, faq = true } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL('/og-image.jpg', Astro.site).href;
 
@@ -83,13 +86,14 @@ const faqSchema = {
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
     <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    {faq && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
     <slot name="head" />
   </head>
   <body>
     <IconSprite />
     <a class="skip" href="#inicio">Saltar al contenido</a>
     <slot />
+    <CartDrawer />
     <script>
       import '../scripts/main';
     </script>

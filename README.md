@@ -35,6 +35,14 @@ En `src/data/site.ts`, reemplaza `null` por el dato real y la etiqueta amarilla 
 - `schedule`: horario de atención
 - `ruc`: RUC
 
+## Tienda en línea (uTracker)
+
+- Página `/tienda`, más una muestra de productos en la landing (sección "Tienda Samplag") y un carrito lateral disponible en todas las páginas.
+- Los productos, precios y stock se administran en **uTracker**. La web los lee en vivo, así que no hace falta tocar el código para agregar o cambiar productos.
+- El catálogo también se lee al compilar, para los datos estructurados de Google. Cuando agregues productos nuevos, vuelve a desplegar en Vercel para que Google los vea.
+- La conexión está en `src/data/store.ts`: URL de la API y llave publicable. La lógica del carrito y del pago está en `src/scripts/store.ts`.
+- El pago se hace en una ventana de uTracker; al confirmarse, el carrito se vacía y se muestra el link de seguimiento.
+
 ## Despliegue en Vercel
 
 1. Sube el proyecto a un repositorio de GitHub, GitLab o Bitbucket.

@@ -2,14 +2,17 @@
 import Icon from './Icon.astro';
 import { site, waLink } from '../data/site';
 
+// Enlaces con "/" delante para que funcionen también desde /tienda
 const links = [
-  { href: '#servicios', label: 'Servicios' },
-  { href: '#plagas', label: 'Plagas' },
-  { href: '#sectores', label: 'Sectores' },
-  { href: '#normativa', label: 'Normativa' },
-  { href: '#nosotros', label: 'Nosotros' },
-  { href: '#contacto', label: 'Contacto' },
+  { href: '/#servicios', label: 'Servicios' },
+  { href: '/#plagas', label: 'Plagas' },
+  { href: '/#sectores', label: 'Sectores' },
+  { href: '/#normativa', label: 'Normativa' },
+  { href: '/#nosotros', label: 'Nosotros' },
+  { href: '/tienda', label: 'Tienda' },
+  { href: '/#contacto', label: 'Contacto' },
 ];
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 <!-- Barra superior -->
 <div class="topbar">
@@ -19,21 +22,27 @@ const links = [
       <a href={`tel:${site.phone}`}><Icon name="phone" />{site.phoneLabel}</a>
       <a href={`mailto:${site.email}`}><Icon name="mail" />{site.email}</a>
     </div>
-    <a class="topbar__badge" href="#autorizaciones"><Icon name="shield" />{site.slogan} · {site.authorization}</a>
+    <a class="topbar__badge" href="/#autorizaciones"><Icon name="shield" />{site.slogan} · {site.authorization}</a>
   </div>
 </div>
 
 <header class="header" id="header">
   <div class="container header__in">
-    <a href="#inicio" class="brand" aria-label="Samplag S.A.C., ir al inicio">
+    <a href="/#inicio" class="brand" aria-label="Samplag S.A.C., ir al inicio">
       <img src="/assets/logo-mark.png" alt="" class="brand__mark" width="815" height="545" />
       <img src="/assets/logo-word.png" alt="Samplag" class="brand__word" width="1069" height="163" />
     </a>
     <nav class="nav" id="nav" aria-label="Principal">
-      {links.map((l) => <a href={l.href}>{l.label}</a>)}
-      <a href="#contacto" class="btn btn--green nav__cta">Cotiza gratis</a>
+      {links.map((l) => (
+        <a href={l.href} class:list={{ 'is-active': l.href === current }} aria-current={l.href === current ? 'page' : undefined}>{l.label}</a>
+      ))}
+      <a href="/#contacto" class="btn btn--green nav__cta">Cotiza gratis</a>
     </nav>
-    <a href="#contacto" class="btn btn--green header__cta">Cotiza gratis <Icon name="arrow" /></a>
+    <button type="button" class="cart-btn" data-cart-open aria-label="Abrir carrito">
+      <Icon name="cart" />
+      <span class="cart-btn__count" data-cart-count hidden>0</span>
+    </button>
+    <a href="/#contacto" class="btn btn--green header__cta">Cotiza gratis <Icon name="arrow" /></a>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
       <svg class="ic" aria-hidden="true"><use href="#i-menu" /></svg>
     </button>
