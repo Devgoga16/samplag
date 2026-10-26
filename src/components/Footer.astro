@@ -27,7 +27,7 @@ const quickMsg = 'Hola Samplag, quisiera una cotización.';
       <a href="/#autorizaciones">Autorizaciones</a>
       <a href="/#empresas">Servicios empresariales</a>
       <a href="/#normativa">Normativa sanitaria</a>
-      <a href="/tienda">Tienda en línea</a>
+      {site.storeEnabled && <a href="/tienda">Tienda en línea</a>}
       <a href="/#prevencion">Prevención</a>
       <a href="/#faq">Preguntas frecuentes</a>
     </div>

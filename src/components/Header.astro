@@ -9,7 +9,7 @@ const links = [
   { href: '/#sectores', label: 'Sectores' },
   { href: '/#normativa', label: 'Normativa' },
   { href: '/#nosotros', label: 'Nosotros' },
-  { href: '/tienda', label: 'Tienda' },
+  ...(site.storeEnabled ? [{ href: '/tienda', label: 'Tienda' }] : []),
   { href: '/#contacto', label: 'Contacto' },
 ];
 const current = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -38,10 +38,12 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
       ))}
       <a href="/#contacto" class="btn btn--green nav__cta">Cotiza gratis</a>
     </nav>
-    <button type="button" class="cart-btn" data-cart-open aria-label="Abrir carrito">
-      <Icon name="cart" />
-      <span class="cart-btn__count" data-cart-count hidden>0</span>
-    </button>
+    {site.storeEnabled && (
+      <button type="button" class="cart-btn" data-cart-open aria-label="Abrir carrito">
+        <Icon name="cart" />
+        <span class="cart-btn__count" data-cart-count hidden>0</span>
+      </button>
+    )}
     <a href="/#contacto" class="btn btn--green header__cta">Cotiza gratis <Icon name="arrow" /></a>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
       <svg class="ic" aria-hidden="true"><use href="#i-menu" /></svg>

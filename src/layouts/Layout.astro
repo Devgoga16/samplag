@@ -25,6 +25,7 @@ const businessSchema = {
   '@id': `${site.url}/#empresa`,
   name: site.name,
   legalName: site.legalName,
+  ...(site.ruc ? { taxID: site.ruc } : {}),
   slogan: site.slogan,
   description:
     'Empresa de saneamiento ambiental y control de plagas autorizada por el Ministerio de Salud. Desinsectación (fumigación), desratización, desinfección, limpieza de cisternas y tanques elevados, campanas extractoras, trampas de grasa y control aviar.',
@@ -93,7 +94,7 @@ const faqSchema = {
     <IconSprite />
     <a class="skip" href="#inicio">Saltar al contenido</a>
     <slot />
-    <CartDrawer />
+    {site.storeEnabled && <CartDrawer />}
     <script>
       import '../scripts/main';
     </script>

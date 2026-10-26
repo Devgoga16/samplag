@@ -16,7 +16,9 @@ export const site = {
   authorizationYear: 2021,
   address: null as string | null,
   schedule: null as string | null,
-  ruc: null as string | null,
+  ruc: '20535825913' as string | null,
+  /** Tienda en línea (uTracker). En false se ocultan el menú, el carrito, la sección y la página /tienda */
+  storeEnabled: false,
 };
 
 export const waLink = (text?: string) =>

@@ -7,6 +7,9 @@ import StoreProducts from '../components/StoreProducts.astro';
 import { loadCatalog } from '../data/store';
 import { site, waLink } from '../data/site';
 
+// Tienda apagada: la página solo redirige al inicio (y queda fuera del sitemap)
+if (!site.storeEnabled) return Astro.redirect('/');
+
 const catalog = await loadCatalog();
 const pageUrl = new URL('/tienda', Astro.site).href;
 

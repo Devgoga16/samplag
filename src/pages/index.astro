@@ -18,8 +18,10 @@ import Faq from '../components/Faq.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 import { loadCatalog } from '../data/store';
+import { site } from '../data/site';
 
-const catalog = await loadCatalog();
+// Con la tienda apagada no se consulta el catálogo de uTracker
+const catalog = site.storeEnabled ? await loadCatalog() : null;
 ---
 <Layout
   title="Fumigación y Limpieza de Cisternas en Lima · Autorizada por MINSA | Samplag"
@@ -40,7 +42,7 @@ const catalog = await loadCatalog();
     <Authorizations />
     <Normativa />
     <Business />
-    <StoreTeaser catalog={catalog} />
+    {catalog && <StoreTeaser catalog={catalog} />}
     <Prevention />
     <Faq />
     <Contact />
