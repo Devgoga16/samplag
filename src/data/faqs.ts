@@ -1,7 +1,9 @@
 // Preguntas frecuentes: se muestran en la página y alimentan el schema FAQPage
 import { site } from './site';
 
-export const faqs: { q: string; a: string }[] = [
+export type Faq = { q: string; a: string };
+
+export const faqs: Faq[] = [
   {
     q: '¿Cómo solicito una cotización?',
     a: 'Completa el formulario de esta página o escríbenos por WhatsApp al 994 694 597 indicando el servicio, el distrito y el tipo de local. Te respondemos con una propuesta a medida.',

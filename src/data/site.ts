@@ -21,5 +21,23 @@ export const site = {
   storeEnabled: false,
 };
 
+/**
+ * Medición para Google Ads y Google Analytics 4.
+ * Mientras un valor sea `null` no se carga nada de Google; basta pegar los códigos y volver a desplegar.
+ * - ga4: ID de la propiedad de Analytics (G-XXXXXXXXXX)
+ * - ads: ID de la cuenta de Google Ads (AW-XXXXXXXXX)
+ * - conversions: etiqueta de cada conversión creada en Google Ads (AW-XXXXXXXXX/AbCdEfGhIj)
+ */
+export const tracking = {
+  ga4: null as string | null,
+  ads: null as string | null,
+  conversions: {
+    whatsapp: null as string | null,
+    call: null as string | null,
+    form: null as string | null,
+    email: null as string | null,
+  },
+};
+
 export const waLink = (text?: string) =>
   `https://wa.me/${site.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ''}`;

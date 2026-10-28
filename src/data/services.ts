@@ -24,6 +24,7 @@ export const services: Service[] = [
     icon: 'spray',
     category: 'plagas',
     description: 'Control integral de insectos rastreros, voladores y arácnidos, mediante metodologías seguras para empresas y hogares, alineado a las normativas sanitarias vigentes.',
+    more: { href: '/fumigacion', label: 'Ver servicio' },
   },
   {
     title: 'Programas de desratización',
@@ -31,6 +32,7 @@ export const services: Service[] = [
     icon: 'rat',
     category: 'plagas',
     description: 'Control integral de roedores mediante inspección, estaciones de cebado seguras, monitoreo y estrategias de exclusión para mitigar el riesgo de proliferación.',
+    more: { href: '/desratizacion', label: 'Ver servicio' },
   },
   {
     title: 'Desinfección general',
@@ -45,6 +47,7 @@ export const services: Service[] = [
     icon: 'droplet',
     category: 'agua',
     description: 'Servicio especializado de limpieza y desinfección de cisternas y tanques elevados, asegurando agua apta para el consumo humano según la normativa vigente.',
+    more: { href: '/limpieza-de-cisternas', label: 'Ver servicio' },
   },
   {
     title: 'Limpieza de campanas extractoras',

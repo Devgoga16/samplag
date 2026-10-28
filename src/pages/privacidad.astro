@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+// Texto base conforme a la Ley N° 29733; conviene que lo revise el asesor legal de la empresa
+const updated = '26 de octubre de 2026';
+---
+<Layout
+  title="Política de privacidad | Samplag"
+  description="Cómo Samplag S.A.C. trata los datos personales que nos compartes al solicitar una cotización, conforme a la Ley N° 29733 de Protección de Datos Personales."
+  faq={false}
+>
+  <Header />
+  <main>
+    <section class="legal" id="inicio">
+      <div class="container legal__in">
+        <nav class="crumbs" aria-label="Ruta">
+          <a href="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Política de privacidad</span>
+        </nav>
+        <h1>Política de privacidad</h1>
+        <p class="legal__date">Última actualización: {updated}</p>
+
+        <h2>1. Responsable del tratamiento</h2>
+        <p>{site.legalName} ({site.name}){site.ruc && <Fragment>, con RUC {site.ruc}</Fragment>}, es responsable del tratamiento de los datos personales que nos proporcionas a través de este sitio web. Puedes escribirnos a <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+
+        <h2>2. Datos que recopilamos</h2>
+        <p>Cuando solicitas una cotización mediante el formulario, WhatsApp, teléfono o correo, podemos recibir: nombre y apellido, empresa, teléfono, distrito, servicio de interés y la información que decidas contarnos sobre tu local.</p>
+        <p>El formulario de este sitio no guarda tus datos en nuestros servidores: arma un mensaje que se abre en tu WhatsApp y que tú decides enviar.</p>
+
+        <h2>3. Para qué usamos tus datos</h2>
+        <ul>
+          <li>Responder tu consulta y enviarte una cotización.</li>
+          <li>Coordinar, ejecutar y certificar el servicio contratado.</li>
+          <li>Dar seguimiento a la atención y recordarte mantenimientos, solo si eres cliente y no te has opuesto.</li>
+        </ul>
+        <p>No vendemos ni cedemos tus datos a terceros con fines comerciales.</p>
+
+        <h2>4. Cookies y medición</h2>
+        <p>Este sitio puede usar herramientas de Google (Google Analytics y Google Ads) que emplean cookies para medir las visitas y saber qué anuncios generan consultas. Estas herramientas recogen datos técnicos de navegación (por ejemplo, páginas visitadas, tipo de dispositivo y ubicación aproximada), no tu nombre ni tu teléfono. Puedes bloquear o borrar las cookies desde la configuración de tu navegador.</p>
+
+        <h2>5. Proveedores que intervienen</h2>
+        <p>Para comunicarnos contigo usamos servicios de terceros como WhatsApp (Meta), Google y nuestro proveedor de correo, que pueden almacenar información fuera del Perú bajo sus propias políticas de privacidad.</p>
+
+        <h2>6. Tiempo de conservación</h2>
+        <p>Conservamos tus datos mientras sean necesarios para atender tu solicitud o la relación comercial, y durante los plazos que exijan las normas tributarias y sanitarias aplicables.</p>
+
+        <h2>7. Tus derechos</h2>
+        <p>Conforme a la Ley N° 29733 y su reglamento, puedes ejercer tus derechos de acceso, rectificación, cancelación y oposición escribiendo a <a href={`mailto:${site.email}`}>{site.email}</a> con el asunto «Datos personales». Si consideras que no fueron atendidos, puedes acudir a la Autoridad Nacional de Protección de Datos Personales del Ministerio de Justicia y Derechos Humanos.</p>
+
+        <h2>8. Cambios</h2>
+        <p>Podemos actualizar esta política. La versión vigente es siempre la publicada en esta página, con su fecha de actualización.</p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

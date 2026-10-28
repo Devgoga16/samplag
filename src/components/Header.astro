@@ -2,6 +2,14 @@
 import Icon from './Icon.astro';
 import { site, waLink } from '../data/site';
 
+interface Props {
+  /** Header de campaña: sin menú, solo el logo y los contactos, para que la visita no se distraiga */
+  minimal?: boolean;
+  /** Mensaje prellenado del botón de WhatsApp en el modo minimal */
+  waText?: string;
+}
+const { minimal = false, waText } = Astro.props;
+
 // Enlaces con "/" delante para que funcionen también desde /tienda
 const links = [
   { href: '/#servicios', label: 'Servicios' },
@@ -14,6 +22,19 @@ const links = [
 ];
 const current = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
+{minimal ? (
+<header class="header header--min" id="header">
+  <div class="container header__in">
+    <a href="/" class="brand" aria-label="Samplag S.A.C., ir al inicio">
+      <img src="/assets/logo-mark.png" alt="" class="brand__mark" width="815" height="545" />
+      <img src="/assets/logo-word.png" alt="Samplag" class="brand__word" width="1069" height="163" />
+    </a>
+    <a href={`tel:${site.phone}`} class="header__phone"><Icon name="phone" /><span><small>Llámanos</small>{site.phoneLabel}</span></a>
+    <a href={waLink(waText)} class="btn btn--green header__wa" target="_blank" rel="noopener"><Icon name="whatsapp" /> <span>WhatsApp</span></a>
+  </div>
+</header>
+) : (
+<Fragment>
 <!-- Barra superior -->
 <div class="topbar">
   <div class="container topbar__in">
@@ -50,3 +71,5 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
     </button>
   </div>
 </header>
+</Fragment>
+)}

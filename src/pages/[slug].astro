@@ -1,0 +1,154 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import Authorizations from '../components/Authorizations.astro';
+import Faq from '../components/Faq.astro';
+import { campaigns, type Campaign } from '../data/campaigns';
+import { site, waLink } from '../data/site';
+
+export const getStaticPaths = () => campaigns.map((c) => ({ params: { slug: c.slug }, props: { c } }));
+
+const { c } = Astro.props as { c: Campaign };
+
+const trust = [
+  { icon: 'shield', strong: 'Autorización', text: 'del MINSA' },
+  { icon: 'file', strong: 'Certificado', text: 'en cada servicio' },
+  { icon: 'award', strong: '+15 años', text: 'de experiencia' },
+  { icon: 'building', strong: 'Empresas', text: 'y hogares' },
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: c.service,
+  serviceType: c.service,
+  url: new URL(`/${c.slug}`, Astro.site).href,
+  description: c.metaDescription,
+  provider: { '@id': `${site.url}/#empresa` },
+  areaServed: { '@type': 'City', name: 'Lima' },
+};
+---
+<Layout title={c.metaTitle} description={c.metaDescription} faq={c.faqs}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Header minimal waText={c.waText} />
+  <main>
+    <section class="hero camp-hero" id="inicio">
+      <Image class="hero__bg" src={c.image} alt={c.imageAlt} widths={[768, 1280, 1800]} sizes="100vw" loading="eager" fetchpriority="high" />
+      <div class="container hero__in">
+        <div class="hero__grid">
+          <div class="hero__content">
+            <span class="hero__badge" data-enter style="--d: 0ms"><Icon name="shield" /> Empresa autorizada · {site.authorization}</span>
+            <h1 data-enter style="--d: 80ms">{c.h1} <span class="hl">{c.h1Highlight}</span></h1>
+            <p class="hero__lead" data-enter style="--d: 160ms">{c.lead}</p>
+            <div class="hero__actions" data-enter style="--d: 240ms">
+              <a href={waLink(c.waText)} class="btn btn--green btn--lg" target="_blank" rel="noopener"><Icon name="whatsapp" /> Cotizar por WhatsApp</a>
+              <a href={`tel:${site.phone}`} class="btn btn--ghost btn--lg"><Icon name="phone" /> Llamar al {site.phoneLabel}</a>
+            </div>
+          </div>
+
+          <form class="quick camp-form" id="cotizar" data-service={c.service} data-enter="card" style="--d: 200ms" novalidate>
+            <div class="quick__head">
+              <span class="quick__pulse" aria-hidden="true"></span>
+              <h2>Cotización gratis</h2>
+              <p>Déjanos tus datos y te respondemos por WhatsApp.</p>
+            </div>
+            <div class="camp-form__grid">
+              <label class="field">
+                <span>Nombre *</span>
+                <input type="text" name="nombre" autocomplete="name" required />
+              </label>
+              <label class="field">
+                <span>Teléfono *</span>
+                <input type="tel" name="telefono" autocomplete="tel" inputmode="tel" required />
+              </label>
+              <label class="field">
+                <span>Distrito *</span>
+                <input type="text" name="distrito" autocomplete="address-level2" required />
+              </label>
+              <label class="field">
+                <span>Es para *</span>
+                <select name="tipo" required>
+                  <option value="">Selecciona</option>
+                  <option>Empresa o negocio</option>
+                  <option>Edificio o condominio</option>
+                  <option>Hogar</option>
+                </select>
+              </label>
+            </div>
+            <p class="qform__error" data-error role="alert" hidden>Completa los campos obligatorios (*).</p>
+            <button type="submit" class="btn btn--green btn--lg btn--block"><Icon name="whatsapp" /> Enviar por WhatsApp</button>
+            <p class="quick__note"><Icon name="check" /> Gratis y sin compromiso · <a href="/privacidad">Privacidad</a></p>
+          </form>
+        </div>
+        <ul class="hero__trust" data-enter style="--d: 360ms">
+          {trust.map((t) => <li><Icon name={t.icon} /><span><b>{t.strong}</b> {t.text}</span></li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container camp-need">
+        <div>
+          <span class="eyebrow">¿Lo necesitas?</span>
+          <h2>Señales de que es momento de llamarnos</h2>
+          <ul class="camp-signs">
+            {c.signs.map((s) => <li class="rule"><Icon name="check-circle" />{s}</li>)}
+          </ul>
+        </div>
+        <div class="camp-ideal">
+          <h3>Atendemos</h3>
+          <ul>
+            {c.ideal.map((i) => <li><Icon name="check" />{i}</li>)}
+          </ul>
+          <a href={waLink(c.waText)} class="btn btn--green btn--block" target="_blank" rel="noopener"><Icon name="whatsapp" /> Consultar ahora</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--navy">
+      <div class="container">
+        <div class="sec-head sec-head--center">
+          <span class="eyebrow eyebrow--light">Qué incluye</span>
+          <h2>Un servicio completo, de la inspección al certificado</h2>
+        </div>
+        <ol class="steps">
+          {c.includes.map((s, i) => (
+            <li class="step">
+              <span class="step__n">{String(i + 1).padStart(2, '0')}</span>
+              <Icon name={s.icon} class="step__ic" />
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <Authorizations />
+
+    <div class="section--tint">
+      <Faq items={c.faqs} title="Preguntas frecuentes" />
+    </div>
+
+    <section class="shop-cta">
+      <div class="container shop-cta__in">
+        <div>
+          <h2>Cotiza hoy, sin compromiso</h2>
+          <p>Cuéntanos tu distrito y el tipo de local, y te enviamos una propuesta a medida por WhatsApp.</p>
+        </div>
+        <div class="shop-cta__actions">
+          <a href={waLink(c.waText)} class="btn btn--green btn--lg" target="_blank" rel="noopener"><Icon name="whatsapp" /> Cotizar por WhatsApp</a>
+          <a href={`tel:${site.phone}`} class="btn btn--ghost btn--lg"><Icon name="phone" /> {site.phoneLabel}</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer waText={c.waText} quoteHref="#cotizar" />
+</Layout>
+
+<script>
+  import '../scripts/campaign';
+</script>

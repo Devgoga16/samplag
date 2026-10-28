@@ -1,5 +1,6 @@
 // Samplag S.A.C. · interacciones comunes a todas las páginas (header, menú, reveal)
 import { $, $$, reduceMotion } from './utils';
+import './track';
 
 // Header con sombra al hacer scroll
 const header = $('#header');
@@ -7,29 +8,31 @@ const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8
 onScroll();
 window.addEventListener('scroll', onScroll, { passive: true });
 
-// Menú móvil
-const burger = $<HTMLButtonElement>('#burger');
-const nav = $('#nav');
-const setMenu = (open: boolean) => {
-  nav.classList.toggle('is-open', open);
-  burger.setAttribute('aria-expanded', String(open));
-  burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-  $('use', burger).setAttribute('href', open ? '#i-x' : '#i-menu');
-};
-burger.addEventListener('click', () => setMenu(!nav.classList.contains('is-open')));
-nav.addEventListener('click', (e) => { if ((e.target as Element).closest('a')) setMenu(false); });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+// Menú móvil (las páginas de campaña usan un header sin menú)
+const burger = document.querySelector<HTMLButtonElement>('#burger');
+const nav = document.querySelector<HTMLElement>('#nav');
+if (burger && nav) {
+  const setMenu = (open: boolean) => {
+    nav.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    $('use', burger).setAttribute('href', open ? '#i-x' : '#i-menu');
+  };
+  burger.addEventListener('click', () => setMenu(!nav.classList.contains('is-open')));
+  nav.addEventListener('click', (e) => { if ((e.target as Element).closest('a')) setMenu(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
 
-// Enlace activo según la sección visible.
-// Se observan todas las secciones para que ninguna quede marcada en bloques fuera del menú.
-const links = $$<HTMLAnchorElement>('a[href*="#"]:not(.btn)', nav);
-const spy = new IntersectionObserver((entries) => {
-  entries.forEach((en) => {
-    if (!en.isIntersecting) return;
-    links.forEach((a) => a.classList.toggle('is-active', a.hash === `#${en.target.id}`));
-  });
-}, { rootMargin: '-45% 0px -50% 0px' });
-$$('main section[id]').forEach((s) => spy.observe(s));
+  // Enlace activo según la sección visible.
+  // Se observan todas las secciones para que ninguna quede marcada en bloques fuera del menú.
+  const links = $$<HTMLAnchorElement>('a[href*="#"]:not(.btn)', nav);
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      links.forEach((a) => a.classList.toggle('is-active', a.hash === `#${en.target.id}`));
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  $$('main section[id]').forEach((s) => spy.observe(s));
+}
 
 // Aparición suave de bloques al hacer scroll
 const revealTargets = $$('.svc, .sector, .step, .tip, .auth__card, .feats li, .faq details, .sec-head, .rule, .pest, .check, #avian-disuasivo .method, .avian__switch');

@@ -1,18 +1,25 @@
 ---
 import Icon from './Icon.astro';
-import { faqs } from '../data/faqs';
+import { faqs, type Faq } from '../data/faqs';
 import { waLink } from '../data/site';
+
+interface Props {
+  /** Preguntas a mostrar (por defecto, las generales) */
+  items?: Faq[];
+  title?: string;
+}
+const { items = faqs, title = 'Resolvemos tus dudas' } = Astro.props;
 ---
 <section class="section" id="faq">
   <div class="container faq">
     <div class="faq__head">
       <span class="eyebrow">Preguntas frecuentes</span>
-      <h2>Resolvemos tus dudas</h2>
+      <h2>{title}</h2>
       <p>¿No encuentras tu respuesta? Escríbenos y te asesoramos sin compromiso.</p>
       <a href={waLink('Hola Samplag, tengo una consulta.')} class="btn btn--outline" target="_blank" rel="noopener"><Icon name="whatsapp" /> Hacer una consulta</a>
     </div>
     <div class="faq__list">
-      {faqs.map((f) => (
+      {items.map((f) => (
         <details>
           <summary>{f.q}<Icon name="plus" /></summary>
           <p>{f.a}</p>

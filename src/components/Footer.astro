@@ -3,8 +3,14 @@ import Icon from './Icon.astro';
 import Placeholder from './Placeholder.astro';
 import { site, waLink } from '../data/site';
 
+interface Props {
+  /** Mensaje prellenado de WhatsApp (las páginas de campaña lo personalizan por servicio) */
+  waText?: string;
+  /** Destino del botón "Cotizar" de la barra móvil */
+  quoteHref?: string;
+}
+const { waText = 'Hola Samplag, quisiera una cotización.', quoteHref = '/#contacto' } = Astro.props;
 const year = new Date().getFullYear();
-const quickMsg = 'Hola Samplag, quisiera una cotización.';
 ---
 <footer class="footer">
   <div class="container footer__in">
@@ -15,10 +21,10 @@ const quickMsg = 'Hola Samplag, quisiera una cotización.';
     </div>
     <div class="footer__col">
       <h4>Servicios</h4>
-      <a href="/#servicios">Desinsectación</a>
-      <a href="/#servicios">Desratización</a>
+      <a href="/fumigacion">Fumigación y desinsectación</a>
+      <a href="/desratizacion">Desratización</a>
       <a href="/#servicios">Desinfección</a>
-      <a href="/#servicios">Cisternas y tanques</a>
+      <a href="/limpieza-de-cisternas">Cisternas y tanques</a>
       <a href="/#servicios">Campanas y trampas de grasa</a>
     </div>
     <div class="footer__col">
@@ -41,14 +47,14 @@ const quickMsg = 'Hola Samplag, quisiera una cotización.';
   </div>
   <div class="container footer__bottom">
     <span>© {year} {site.name} Todos los derechos reservados. · RUC {site.ruc ?? <Placeholder light>por confirmar</Placeholder>}</span>
-    <span>{site.authorization}</span>
+    <span>{site.authorization} · <a href="/privacidad">Política de privacidad</a></span>
   </div>
 </footer>
 
 <!-- WhatsApp flotante (desktop) y barra inferior (móvil) -->
-<a class="wa-float" href={waLink(quickMsg)} target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><Icon name="whatsapp" /></a>
+<a class="wa-float" href={waLink(waText)} target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><Icon name="whatsapp" /></a>
 <nav class="mbar" aria-label="Contacto rápido">
   <a href={`tel:+${site.whatsapp}`}><Icon name="phone" />Llamar</a>
-  <a href={waLink(quickMsg)} target="_blank" rel="noopener" class="mbar__wa"><Icon name="whatsapp" />WhatsApp</a>
-  <a href="/#contacto"><Icon name="file" />Cotizar</a>
+  <a href={waLink(waText)} target="_blank" rel="noopener" class="mbar__wa"><Icon name="whatsapp" />WhatsApp</a>
+  <a href={quoteHref}><Icon name="file" />Cotizar</a>
 </nav>

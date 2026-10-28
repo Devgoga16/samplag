@@ -2,20 +2,23 @@
 import '../styles/global.css';
 import IconSprite from '../components/IconSprite.astro';
 import CartDrawer from '../components/CartDrawer.astro';
-import { site } from '../data/site';
+import { site, tracking } from '../data/site';
 import { services } from '../data/services';
-import { faqs } from '../data/faqs';
+import { faqs, type Faq } from '../data/faqs';
 
 interface Props {
   title: string;
   description: string;
   ogTitle?: string;
   ogDescription?: string;
-  /** Incluye el schema FAQPage (solo en páginas donde las preguntas son visibles) */
-  faq?: boolean;
+  /** Schema FAQPage: true usa las preguntas generales, una lista usa esas; solo en páginas donde las preguntas son visibles */
+  faq?: boolean | Faq[];
 }
 
 const { title, description, ogTitle = title, ogDescription = description, faq = true } = Astro.props;
+const faqList = faq === true ? faqs : faq || [];
+// Una sola carga de gtag.js configura Analytics y Google Ads
+const gtagIds = [tracking.ga4, tracking.ads].filter((id): id is string => Boolean(id));
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL('/og-image.jpg', Astro.site).href;
 
@@ -54,7 +57,7 @@ const businessSchema = {
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  mainEntity: faqList.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 };
 ---
 <!doctype html>
@@ -86,8 +89,20 @@ const faqSchema = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
+    {gtagIds.length > 0 && (
+      <Fragment>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gtagIds[0]}`}></script>
+        <script is:inline define:vars={{ gtagIds }}>
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function () { window.dataLayer.push(arguments); };
+          window.gtag('js', new Date());
+          gtagIds.forEach((id) => window.gtag('config', id));
+        </script>
+      </Fragment>
+    )}
+
     <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
-    {faq && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+    {faqList.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
     <slot name="head" />
   </head>
   <body>

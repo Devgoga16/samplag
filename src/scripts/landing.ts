@@ -2,6 +2,7 @@
 import { site, waLink } from '../data/site';
 import { pests, riskLabel } from '../data/pests';
 import { $, $$, reduceMotion, EASE_OUT, replay, single } from './utils';
+import { trackLead, waWithSource } from './track';
 
 // Botones "Cotizar este servicio": preseleccionan el servicio y llevan al formulario
 const select = $<HTMLSelectElement>('#servicio');
@@ -38,7 +39,8 @@ form.addEventListener('submit', (e) => {
   });
   error.hidden = ok;
   if (!ok) return;
-  window.open(waLink(buildMessage(formData())), '_blank', 'noopener');
+  trackLead('form');
+  window.open(waWithSource(waLink(buildMessage(formData()))), '_blank', 'noopener');
 });
 
 form.addEventListener('input', (e) => {

@@ -47,7 +47,7 @@ const options = [...services.map((s) => s.quote), ...extraQuoteOptions];
       </div>
       <p class="qform__error" id="qerror" role="alert" hidden>Completa los campos obligatorios (*).</p>
       <button type="submit" class="btn btn--green btn--lg btn--block"><Icon name="whatsapp" /> Enviar por WhatsApp</button>
-      <p class="qform__alt">¿Prefieres correo? <a href={`mailto:${site.email}?subject=${encodeURIComponent('Solicitud de cotización')}`} id="qmail">Envíanos un email</a></p>
+      <p class="qform__alt">¿Prefieres correo? <a href={`mailto:${site.email}?subject=${encodeURIComponent('Solicitud de cotización')}`} id="qmail">Envíanos un email</a> · <a href="/privacidad">Política de privacidad</a></p>
     </form>
 
     <aside class="cinfo">
