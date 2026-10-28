@@ -30,7 +30,7 @@ export const site = {
  */
 export const tracking = {
   ga4: null as string | null,
-  ads: null as string | null,
+  ads: 'AW-18542755332' as string | null,
   conversions: {
     whatsapp: null as string | null,
     call: null as string | null,
